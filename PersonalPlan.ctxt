@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=PersonalPlan
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ PersonalPlan\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=promptsMonthlyQuota\ modelName\ price\ paramaterCount\ contextWindow
+comment1.target=PersonalPlan(int,\ java.lang.String,\ double,\ int,\ java.lang.String)
+comment2.params=
+comment2.target=int\ getPromptsMonthlyQuota()
+comment3.params=promptsMonthlyQuota
+comment3.target=void\ setPromptsMonthlyQuota(int)
+comment4.params=buyPrompts\ promptsMonthlyQuota
+comment4.target=java.lang.String\ purchaseAdditionalPrompts(int,\ int)
+comment5.params=promptText\ expectedTokens
+comment5.target=java.lang.String\ sendPrompt(java.lang.String,\ int)
+comment6.params=
+comment6.target=java.lang.String\ displayOutput()
+numComments=7

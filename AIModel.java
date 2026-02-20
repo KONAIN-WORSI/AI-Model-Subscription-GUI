@@ -12,7 +12,7 @@ public class AIModel
     private int paramaterCount;
     private String contextWindow;
     
-    public void AIModel(String modelName, double price, int paramaterCount, String contextWindow) {
+    AIModel(String modelName, double price, int paramaterCount, String contextWindow) {
        this.modelName = modelName;
        this.price = price;
        this.paramaterCount = paramaterCount;
