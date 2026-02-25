@@ -23,32 +23,16 @@ public class AIModel
         return this.modelName;
     }
     
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-    
     public double getPrice() {
         return this.price;
-    }
-    
-    public void setPrice(double price) {
-        this.price = price;
     }
     
     public int getParamaterCount() {
         return this.paramaterCount;
     }
     
-    public void setParamaterCount(int paramaterCount) {
-        this.paramaterCount = paramaterCount;
-    }
-    
     public String getContextWindow() {
         return this.contextWindow;
-    }
-    
-    public void setContextWindow(String contextWindow) {
-        this.contextWindow = contextWindow;
     }
     
     public String displayOutput() {

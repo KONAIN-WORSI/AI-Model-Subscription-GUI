@@ -46,11 +46,7 @@ public class PersonalPlan extends AIModel
     
     @Override
     public String displayOutput() {
-        String parentDetails = super.displayOutput();
-        
-        return "Remaining Prompts in Monthly Quota: " + promptsMonthlyQuota;
+        return super.displayOutput() + 
+            "\nRemaining Prompts in Monthly Quota: " + promptsMonthlyQuota;
     }
-    
-    
-    
 }
