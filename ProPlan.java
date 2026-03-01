@@ -8,18 +8,18 @@ import java.util.ArrayList;
  */
 public class ProPlan extends AIModel
 {
-    private int availableTeamSlots;
+    private int availableSlots;
     private ArrayList<String> teamMember = new ArrayList<>();
     
-    ProPlan(int availableTeamSlots, String modelName, double price, int paramaterCount, String contextWindow) {
+    ProPlan(int availableSlots, String modelName, double price, int paramaterCount, int contextWindow) {
         super(modelName, price, paramaterCount, contextWindow);
-        this.availableTeamSlots = availableTeamSlots;
+        this.availableSlots = availableSlots;
     }
 
-    public String addTeamMemeber(String memberName) {
-        if(availableTeamSlots > 0){
+    public String addTeamMember(String memberName) {
+        if(availableSlots > 0){
             teamMember.add(memberName);
-            availableTeamSlots--;
+            availableSlots--;
             return "Team Member added successfully!";
         }else{
             return "ERROR: No available team slots";
@@ -29,16 +29,29 @@ public class ProPlan extends AIModel
     public String removeTeamMember(String memberName) {
         if(teamMember.contains(memberName)){
             teamMember.remove(memberName);
-            availableTeamSlots++;
+            availableSlots++;
             return "Team member removed successfully";
         }else {
             return "ERROR: Team member not found";
         }
     }
+
+    public String usePrompts(String promptText, int expectedTokens, int systemTokens, int outputTokens) {
+        if(calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
+            return "Prompt accepted \n"
+                +  "Prompt: " + promptText + "\n"
+                +  "Expected Tokens: " + expectedTokens;
+        else {
+            return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
+        }   
+    }
     
     @Override
     public String displayOutput() {
-        return super.displayOutput() +
-        "\nAvailable Team Slots: " + availableTeamSlots;
+         return "AI Model Name:" + getModelName() + 
+            "\nPrice of Model: " + getPrice() 
+            + "\nParamater Count: " + getParamaterCount() 
+            + "\nContext Window Size: " + getContextWindow()
+            + "\nAvailable Team Slots: " + availableSlots;
     }
 }

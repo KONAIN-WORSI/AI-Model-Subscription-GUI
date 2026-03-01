@@ -7,38 +7,42 @@
  */
 public class PersonalPlan extends AIModel
 {
-    private int promptsMonthlyQuota;
+    private int promptsRemaining;
     
-    PersonalPlan(int promptsMonthlyQuota, String modelName, double price, int paramaterCount, String contextWindow) {
+    PersonalPlan(int promptsMonthlyQuota, String modelName, double price, int paramaterCount, int contextWindow) {
         super(modelName, price, paramaterCount, contextWindow);
-        this.promptsMonthlyQuota = promptsMonthlyQuota;
+        this.promptsRemaining  = promptsMonthlyQuota;
     }
     
-    public int getPromptsMonthlyQuota() {
-        return this.promptsMonthlyQuota;
+    public int getPromptsRemaining() {
+        return this.promptsRemaining;
     }
     
-    public void setPromptsMonthlyQuota(int promptsMonthlyQuota) {
-        this.promptsMonthlyQuota = promptsMonthlyQuota;
+    public void setPromptsRemaining(int promptsRemaining) {
+        this.promptsRemaining = promptsRemaining;
     }
     
-    public String purchaseAdditionalPrompts(int buyPrompts, int promptsMonthlyQuota) {
-        if (buyPrompts >= 0) {
+    public String purchasePrompts(int buyPrompts, int promptsMonthlyQuota) {
+        if (buyPrompts <= 0) {
             System.out.println("Please enter a positive number to purchase additional prompts!");
         }
 
-        buyPrompts += this.promptsMonthlyQuota;
-        return "You have successfully purchased additional prompts. Your remaining prompts: " + promptsMonthlyQuota; 
+        buyPrompts += this.promptsRemaining;
+        this.promptsRemaining = buyPrompts;
+        return "You have successfully purchased prompts. Your remaining prompts: " + buyPrompts; 
     }
     
-    public String sendPrompt(String promptText, int expectedTokens) {
-        if (promptsMonthlyQuota > 0) {
-            promptsMonthlyQuota--;
+    public String usePrompt(String promptText, int expectedTokens, int systemTokens, int outputTokens) {
+        if(!calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
+            return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
+
+        if (promptsRemaining > 0) {
+            promptsRemaining--;
             
-            return "Promp accepted \n"
+            return "Prompt accepted \n"
                 +  "Prompt: " + promptText + "\n"
                 +  "Expected Tokens: " + expectedTokens + "\n"
-                +  "Remaining prompts: " + promptsMonthlyQuota;
+                +  "Remaining prompts: " + promptsRemaining;
         }else {
             return "Monthly plan limit reached. Please upgrade your plan.";
         }
@@ -46,7 +50,10 @@ public class PersonalPlan extends AIModel
     
     @Override
     public String displayOutput() {
-        return super.displayOutput() + 
-            "\nRemaining Prompts in Monthly Quota: " + promptsMonthlyQuota;
+        return "AI Model Name:" + getModelName() + 
+            "\nPrice of Model: " + getPrice() 
+            + "\nParamater Count: " + getParamaterCount() 
+            + "\nContext Window Size: " + getContextWindow() 
+            + "\nRemaining Prompts in Monthly Quota: " + promptsRemaining;
     }
 }

@@ -5,14 +5,14 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class AIModel
+abstract class AIModel
 {
     private String modelName;
     private double price;
     private int paramaterCount;
-    private String contextWindow;
+    private int contextWindow;
     
-    AIModel(String modelName, double price, int paramaterCount, String contextWindow) {
+    AIModel(String modelName, double price, int paramaterCount, int contextWindow) {
        this.modelName = modelName;
        this.price = price;
        this.paramaterCount = paramaterCount;
@@ -31,12 +31,15 @@ public class AIModel
         return this.paramaterCount;
     }
     
-    public String getContextWindow() {
+    public int getContextWindow() {
         return this.contextWindow;
     }
-    
-    public String displayOutput() {
-          return "AI Model Name: " + modelName + "\nPrice of Model: " + price + "\nParamater Count: " + paramaterCount + "\nContext Window Size: " + contextWindow;
+
+    public boolean calculateTokenUsage(int inputTokens, int outputTokens, int systemTokens) {
+        int totalTokens = inputTokens + outputTokens + systemTokens;
+        boolean tokenValidation = (totalTokens <= contextWindow) ? true : false;
+        return tokenValidation;
     }
     
+    public abstract String displayOutput();
 }

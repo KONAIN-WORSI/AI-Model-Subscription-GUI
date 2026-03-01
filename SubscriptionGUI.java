@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 /**
  * Write a description of class SubscriptionGUI here.
  *
@@ -7,4 +7,5 @@
  */
 public class SubscriptionGUI
 {
+    private ArrayList<AIModel> plans = new ArrayList<>();
 }
