@@ -11,7 +11,7 @@ public class ProPlan extends AIModel
     private int availableSlots;
     private ArrayList<String> teamMember = new ArrayList<>();
     
-    ProPlan(int availableSlots, String modelName, double price, int paramaterCount, int contextWindow) {
+    ProPlan(String modelName, double price, int paramaterCount, int contextWindow, int availableSlots) {
         super(modelName, price, paramaterCount, contextWindow);
         this.availableSlots = availableSlots;
     }

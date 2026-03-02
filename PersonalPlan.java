@@ -9,9 +9,9 @@ public class PersonalPlan extends AIModel
 {
     private int promptsRemaining;
     
-    PersonalPlan(int promptsMonthlyQuota, String modelName, double price, int paramaterCount, int contextWindow) {
+    PersonalPlan(String modelName, double price, int paramaterCount, int contextWindow, int promptsQuota) {
         super(modelName, price, paramaterCount, contextWindow);
-        this.promptsRemaining  = promptsMonthlyQuota;
+        this.promptsRemaining  = promptsQuota;
     }
     
     public int getPromptsRemaining() {
@@ -22,7 +22,7 @@ public class PersonalPlan extends AIModel
         this.promptsRemaining = promptsRemaining;
     }
     
-    public String purchasePrompts(int buyPrompts, int promptsMonthlyQuota) {
+    public String purchasePrompts(int buyPrompts) {
         if (buyPrompts <= 0) {
             System.out.println("Please enter a positive number to purchase additional prompts!");
         }
