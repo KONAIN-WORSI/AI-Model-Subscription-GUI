@@ -2,14 +2,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // 1️⃣ Instantiate PersonalPlan and ProPlan
+        // Instantiate PersonalPlan and ProPlan
         PersonalPlan personal = new PersonalPlan("GPT Lite", 1000, 7, 1000,  500);
 
         ProPlan pro = new ProPlan( "GPT Pro", 3000, 70, 2000, 5);
 
         System.out.println("===== PERSONAL PLAN TEST =====");
 
-        // 2️⃣ Exhaust PersonalPlan quota
+        // Exhaust PersonalPlan quota
         for (int i = 0; i < 500; i++) {
             personal.usePrompt("Test prompt " + i, 50, 10, 20);  
         }
@@ -18,14 +18,14 @@ public class Main {
         System.out.println(personal.usePrompt("After quota", 50, 10, 20));  
 
 
-        // 3️⃣ Purchase additional prompts
+        // Purchase additional prompts
         System.out.println(personal.purchasePrompts(50));  // add more prompts
 
         // Use prompt again after recharge
         System.out.println(personal.usePrompt("After recharge", 50, 10, 20));
 
 
-        // 4️⃣ Context window limit testing (Input + Output + System > context)
+        // Context window limit testing (Input + Output + System > context)
         System.out.println("\n===== CONTEXT LIMIT TEST =====");
 
         int inputTokens = 600;
@@ -52,7 +52,7 @@ public class Main {
         }
 
 
-        // 5️⃣ ProPlan test (no quota reduction)
+        // ProPlan test (no quota reduction)
         System.out.println("\n===== PRO PLAN TEST =====");
 
         System.out.println(pro.addTeamMember("Alice"));
