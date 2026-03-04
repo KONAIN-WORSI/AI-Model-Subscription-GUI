@@ -18,10 +18,6 @@ public class PersonalPlan extends AIModel
         return this.promptsRemaining;
     }
     
-    public void setPromptsRemaining(int promptsRemaining) {
-        this.promptsRemaining = promptsRemaining;
-    }
-    
     public String purchasePrompts(int buyPrompts) {
         if (buyPrompts <= 0) {
             System.out.println("Please enter a positive number to purchase additional prompts!");
