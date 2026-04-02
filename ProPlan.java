@@ -36,7 +36,7 @@ public class ProPlan extends AIModel
         }
     }
 
-    public String usePrompts(String promptText, int expectedTokens, int systemTokens, int outputTokens) {
+    public String usePrompt(String promptText, int expectedTokens, int outputTokens, int systemTokens) {
         if(calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
             return "Prompt accepted \n"
                 +  "Prompt: " + promptText + "\n"

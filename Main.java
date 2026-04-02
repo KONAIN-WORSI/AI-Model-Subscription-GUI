@@ -3,10 +3,10 @@ public class Main {
     public static void main(String[] args) {
 
         // Instantiate PersonalPlan and ProPlan
-        PersonalPlan personal = new PersonalPlan("GPT Lite", 1000, 7, 1000,  500);
+        PersonalPlan personal = new PersonalPlan("GPT Lite", 1000, 7, 1000,  3);
 
-        ProPlan pro = new ProPlan( "GPT Pro", 3000, 70, 2000, 5);
-
+        ProPlan pro = new ProPlan( "GPT Pro", 3000, 70, 2000, 50);
+        
         System.out.println("===== PERSONAL PLAN TEST =====");
 
         // Exhaust PersonalPlan quota
@@ -68,5 +68,9 @@ public class Main {
         System.out.println(personal.displayOutput());
         System.out.println("------------------------");
         System.out.println(pro.displayOutput());
+       
+       
+        
+        
     }
 }
