@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Write a description of class SubscriptionGUI here.
@@ -11,102 +12,180 @@ public class SubscriptionGUI {
     public static void main(String[] args) {
         ArrayList<AIModel> plans = new ArrayList<>();
 
-        JFrame frame = new JFrame("AI Model Subscription Management System");
-        frame.setSize(800, 800);
-        frame.setResizable(false);
+        JFrame frame = new JFrame("AI Subscription Manager");
+        frame.setSize(1000, 800);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+
+        // Text Fields
+        JTextField modelNameField = new JTextField(25);
+        JTextField priceField = new JTextField(25);
+        JTextField parametersField = new JTextField(25);
+        JTextField contextWindowField = new JTextField(25);
+        JTextField teamSlotsField = new JTextField(25);
+        JTextField promptField = new JTextField(25);
+        JTextField responseLengthField = new JTextField(25);
+        JTextField teamMemberField = new JTextField(25);
+
+        // ============ LEFT PANEL (FORM) ============
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(null);
+
+        // Model details group
+        JPanel modelSection = new JPanel();
+        modelSection.setLayout(null);
+        modelSection.setBorder(BorderFactory.createTitledBorder("Model Details"));
+        modelSection.setBounds(10, 10, 340, 180);
+
+        JLabel modLabel = new JLabel("Model Name:");
+        modLabel.setBounds(15, 25, 110, 25);
+        modelSection.add(modLabel);
+        modelNameField.setBounds(130, 25, 190, 25);
+        modelSection.add(modelNameField);
+
+        JLabel priceLabel = new JLabel("Price ($):");
+        priceLabel.setBounds(15, 55, 110, 25);
+        modelSection.add(priceLabel);
+        priceField.setBounds(130, 55, 190, 25);
+        modelSection.add(priceField);
+
+        JLabel parametersLabel = new JLabel("Parameter Count:");
+        parametersLabel.setBounds(15, 85, 110, 25);
+        modelSection.add(parametersLabel);
+        parametersField.setBounds(130, 85, 190, 25);
+        modelSection.add(parametersField);
+
+        JLabel contextWindowLabel = new JLabel("Context Window:");
+        contextWindowLabel.setBounds(15, 115, 110, 25);
+        modelSection.add(contextWindowLabel);
+        contextWindowField.setBounds(130, 115, 190, 25);
+        modelSection.add(contextWindowField);
+
+        leftPanel.add(modelSection);
+
+        // Plan settings group
+        JPanel planSection = new JPanel();
+        planSection.setLayout(null);
+        planSection.setBorder(BorderFactory.createTitledBorder("Plan Settings"));
+        planSection.setBounds(10, 200, 340, 140);
+
+        JLabel teamSlotsLabel = new JLabel("Team Slots:");
+        teamSlotsLabel.setBounds(15, 25, 110, 25);
+        planSection.add(teamSlotsLabel);
+        teamSlotsField.setBounds(130, 25, 190, 25);
+        planSection.add(teamSlotsField);
+
+        JLabel promptLabel = new JLabel("Prompt:");
+        promptLabel.setBounds(15, 55, 110, 25);
+        planSection.add(promptLabel);
+        promptField.setBounds(130, 55, 190, 25);
+        planSection.add(promptField);
+
+        JLabel responseLengthLabel = new JLabel("Response Length:");
+        responseLengthLabel.setBounds(15, 85, 110, 25);
+        planSection.add(responseLengthLabel);
+        responseLengthField.setBounds(130, 85, 190, 25);
+        planSection.add(responseLengthField);
+
+        leftPanel.add(planSection);
+
+        // Team management group
+        JPanel teamSection = new JPanel();
+        teamSection.setLayout(null);
+        teamSection.setBorder(BorderFactory.createTitledBorder("Team Management"));
+        teamSection.setBounds(10, 350, 340, 100);
+
+        JLabel teamMemberLabel = new JLabel("Team Member Name:");
+        teamMemberLabel.setBounds(15, 25, 125, 25);
+        teamSection.add(teamMemberLabel);
+        teamMemberField.setBounds(160, 25, 170, 25);
+        teamSection.add(teamMemberField);
+
+        leftPanel.add(teamSection);
+
+        // Set left panel size
+        leftPanel.setPreferredSize(new Dimension(360, 470));
+        leftPanel.setSize(360, 470);
+
+        JScrollPane leftScrollPane = new JScrollPane(leftPanel);
+        leftScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        // ============ CENTER PANEL (DISPLAY AREA) ============
+        JTextArea displayArea = new JTextArea();
+        displayArea.setFont(new Font("Roboto Bold", Font.PLAIN, 11));
+        displayArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Output Display"));
+
+        // ============ BUTTONS ============
+        JButton addPersonal = new JButton("Add Personal Plan");
+        JButton addPro = new JButton("Add Pro Plan");
+        JButton displayPlans = new JButton("Display Plans");
+        JButton promptBtn = new JButton("Give a Prompt");
+        JButton clearBtn = new JButton("Clear Fields");
+        JButton addTeamMember = new JButton("Add Team Member");
+        JButton checkPlanType = new JButton("Check Plan Type");
+        JButton exportBtn = new JButton("Export to File");
+        JButton loadBtn = new JButton("Load From File");
+
+        // Set button sizes
+        Dimension buttonSize = new Dimension(140, 35);
+        addPersonal.setPreferredSize(buttonSize);
+        addPro.setPreferredSize(buttonSize);
+        displayPlans.setPreferredSize(buttonSize);
+        promptBtn.setPreferredSize(buttonSize);
+        clearBtn.setPreferredSize(buttonSize);
+        addTeamMember.setPreferredSize(buttonSize);
+        checkPlanType.setPreferredSize(buttonSize);
+        exportBtn.setPreferredSize(buttonSize);
+        loadBtn.setPreferredSize(buttonSize);
+
+        // Main layout - NULL LAYOUT
         frame.setLayout(null);
 
-        // panel
-        JPanel panel = new JPanel();
-        panel.setBounds(30, 30, 700, 700);
-        panel.setLayout(null);
-        panel.setBorder(BorderFactory.createLineBorder(java.awt.Color.DARK_GRAY, 3));
-        frame.add(panel);
+        // Position components manually
+        leftScrollPane.setBounds(10, 10, 360, 600);
+        scrollPane.setBounds(380, 10, 600, 600);
 
-        // model name
-        JLabel modelLabel = new JLabel("Model Name: ");
-        modelLabel.setBounds(50, 50, 200, 25);
-        panel.add(modelLabel);
+        // Position buttons with spacing
+        int buttonY = 620;
+        int buttonSpacing = 15;
+        int startX = 10;
 
-        JTextField modelField = new JTextField();
-        modelField.setBounds(155, 50, 200, 25);
-        panel.add(modelField);
+        addPersonal.setBounds(startX, buttonY, 140, 35);
+        addPro.setBounds(startX + 155, buttonY, 140, 35);
+        displayPlans.setBounds(startX + 310, buttonY, 140, 35);
+        promptBtn.setBounds(startX + 465, buttonY, 140, 35);
+        clearBtn.setBounds(startX + 620, buttonY, 140, 35);
 
-        // price
-        JLabel priceLabel = new JLabel("Price: ");
-        priceLabel.setBounds(50, 100, 200, 25);
-        panel.add(priceLabel);
+        // Second row of buttons
+        buttonY += 45;
+        addTeamMember.setBounds(startX, buttonY, 140, 35);
+        checkPlanType.setBounds(startX + 155, buttonY, 140, 35);
+        exportBtn.setBounds(startX + 310, buttonY, 140, 35);
+        loadBtn.setBounds(startX + 465, buttonY, 140, 35);
 
-        JTextField priceField = new JTextField();
-        priceField.setBounds(155, 100, 200, 25);
-        panel.add(priceField);
+        // Add components to frame
+        frame.add(leftScrollPane);
+        frame.add(scrollPane);
+        frame.add(addPersonal);
+        frame.add(addPro);
+        frame.add(displayPlans);
+        frame.add(promptBtn);
+        frame.add(clearBtn);
+        frame.add(addTeamMember);
+        frame.add(checkPlanType);
+        frame.add(exportBtn);
+        frame.add(loadBtn);
 
-        // parameter count
-        JLabel parameterLabel = new JLabel("Parameter Count: ");
-        parameterLabel.setBounds(50, 150, 200, 25);
-        panel.add(parameterLabel);
+        frame.setVisible(true);
 
-        JTextField parameterField = new JTextField();
-        parameterField.setBounds(155, 150, 200, 25);
-        panel.add(parameterField);
-
-        // context window
-        JLabel contextLabel = new JLabel("Context Window: ");
-        contextLabel.setBounds(50, 200, 200, 25);
-        panel.add(contextLabel);
-
-        JTextField contextField = new JTextField();
-        contextField.setBounds(155, 200, 200, 25);
-        panel.add(contextField);
-
-        // available team slots
-        JLabel teamLabel = new JLabel("Team Slots: ");
-        teamLabel.setBounds(50, 250, 200, 25);
-        panel.add(teamLabel);
-
-        JTextField teamField = new JTextField();
-        teamField.setBounds(155, 250, 200, 25);
-        panel.add(teamField);
+        // ============ EVENT HANDLING ============
 
         // Personal Plan Button
-        JButton personalButton = new JButton();
-        personalButton.setText("Personal Plan Button");
-        personalButton.setBounds(400, 100, 200, 25);
-        panel.add(personalButton);
-
-        // Pro Plan Button
-        JButton proButton = new JButton();
-        proButton.setText("Pro Plan Button");
-        proButton.setBounds(400, 150, 200, 25);
-        panel.add(proButton);
-
-        // display button
-        JButton displayButton = new JButton();
-        displayButton.setText("Display Output Details");
-        displayButton.setBounds(400, 200, 200, 25);
-        panel.add(displayButton);
-
-        // clear button
-        JButton clearButton = new JButton();
-        clearButton.setText("Clear");
-        clearButton.setBounds(400, 250, 200, 25);
-        panel.add(clearButton);
-
-        // Display outpu area
-        JTextArea area = new JTextArea();
-        JScrollPane pane = new JScrollPane(area);
-        pane.setBounds(100, 350, 500, 300);
-        panel.add(pane);
-
-
-        // event handling
-
-        // Personal Plan Button
-        personalButton.addActionListener(e -> {
+        addPersonal.addActionListener(e -> {
             try{
-                String name = modelField.getText();
+                String name = modelNameField.getText();
 
                 if(!name.matches("[a-zA-Z ]+")){
                     JOptionPane.showMessageDialog(frame, "Invalid name!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -114,8 +193,8 @@ public class SubscriptionGUI {
                 }
 
                 double price = Double.parseDouble(priceField.getText());
-                int parameterCount = Integer.parseInt(parameterField.getText());
-                int contextWindow = Integer.parseInt(contextField.getText());
+                int parameterCount = Integer.parseInt(parametersField.getText());
+                int contextWindow = Integer.parseInt(contextWindowField.getText());
 
                 PersonalPlan personalPlan = new  PersonalPlan(name, price, parameterCount, contextWindow, 500);
                 plans.add(personalPlan);
@@ -128,9 +207,9 @@ public class SubscriptionGUI {
         });
 
         // Pro Plan Button
-        proButton.addActionListener(e -> {
+        addPro.addActionListener(e -> {
             try{
-                String name = modelField.getText();
+                String name = modelNameField.getText();
 
                 if(!name.matches("[a-zA-Z ]+")){
                     JOptionPane.showMessageDialog(frame, "Invalid name!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -138,9 +217,9 @@ public class SubscriptionGUI {
                 }
 
                 double price = Double.parseDouble(priceField.getText());
-                int parameterCount = Integer.parseInt(parameterField.getText());
-                int contextWindow = Integer.parseInt(contextField.getText());
-                int teamSlots = Integer.parseInt(teamField.getText());
+                int parameterCount = Integer.parseInt(parametersField.getText());
+                int contextWindow = Integer.parseInt(contextWindowField.getText());
+                int teamSlots = Integer.parseInt(teamSlotsField.getText());
 
                 ProPlan proPlan = new ProPlan(name, price, parameterCount, contextWindow, teamSlots);
                 plans.add(proPlan);
@@ -153,17 +232,21 @@ public class SubscriptionGUI {
         });
 
         // clear button
-        clearButton.addActionListener(e -> {
-            modelField.setText("");
+        clearBtn.addActionListener(e -> {
+            modelNameField.setText("");
             priceField.setText("");
-            parameterField.setText("");
-            contextField.setText("");
-            teamField.setText("");
-            area.setText("");
+            parametersField.setText("");
+            contextWindowField.setText("");
+            teamSlotsField.setText("");
+            displayArea.setText("");
+            teamMemberField.setText("");
+            promptField.setText("");
+            responseLengthField.setText("");
+            teamSlotsField.setText("");
         });
 
         // display button
-        displayButton.addActionListener(e -> {
+        displayPlans.addActionListener(e -> {
             if(plans.isEmpty()){
                  JOptionPane.showMessageDialog(frame, "No plans to display. Please create a plan first.");
             } else {
@@ -171,14 +254,8 @@ public class SubscriptionGUI {
                  for(AIModel plan : plans){
                      output.append(plan.displayOutput()).append("\n-------------------\n");
                  }
-                 area.setText(output.toString());
+                 displayArea.setText(output.toString());
             }
         });
-        
-        
-
-
-        frame.setVisible(true);
-
     }
 }
