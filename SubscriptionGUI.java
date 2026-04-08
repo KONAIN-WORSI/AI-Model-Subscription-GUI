@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 
 /**
  * Write a description of class SubscriptionGUI here.
@@ -123,7 +124,7 @@ public class SubscriptionGUI {
         JButton displayPlans = new JButton("Display Plans");
         JButton promptBtn = new JButton("Give a Prompt");
         JButton clearBtn = new JButton("Clear Fields");
-        JButton addTeamMember = new JButton("Add Team Member");
+        JButton addTeamMember = new JButton("Add Member");
         JButton checkPlanType = new JButton("Check Plan Type");
         JButton exportBtn = new JButton("Export to File");
         JButton loadBtn = new JButton("Load From File");
@@ -149,7 +150,6 @@ public class SubscriptionGUI {
 
         // Position buttons with spacing
         int buttonY = 620;
-        int buttonSpacing = 15;
         int startX = 10;
 
         addPersonal.setBounds(startX, buttonY, 140, 35);
@@ -230,6 +230,87 @@ public class SubscriptionGUI {
                 JOptionPane.showMessageDialog(frame, "Please enter valid input for all fields.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+        // add team member button
+        addTeamMember.addActionListener(e -> {
+            try{
+                String teamMember = teamMemberField.getText();
+                if(teamMember.isEmpty()){
+                    JOptionPane.showMessageDialog(frame, "Please enter a team member name.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                String modelName = modelNameField.getText();
+                double price = Double.parseDouble(priceField.getText());
+                int parameterCount = Integer.parseInt(parametersField.getText());
+                int contextWindow = Integer.parseInt(contextWindowField.getText());
+                int teamSlots = Integer.parseInt(teamSlotsField.getText());
+
+                ProPlan proPlan = new ProPlan(modelName, price, parameterCount, contextWindow, teamSlots);
+                proPlan.addTeamMember(teamMember);
+                JOptionPane.showMessageDialog(frame, "Team member added successfully!");
+
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(frame, "An error occurred while adding the team member.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        // check plan type button
+        checkPlanType.addActionListener(e -> {
+            try{
+                String modelName = modelNameField.getText();
+                AIModel foundPlan = null;
+                for(AIModel plan : plans) {
+                    if(plan.getModelName().equalsIgnoreCase(modelName)) {
+                        foundPlan = plan;
+                        break;
+                    }
+                }
+
+                if(foundPlan == null) {
+                    JOptionPane.showMessageDialog(frame, "No plan found with the given model name.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else if(foundPlan instanceof PersonalPlan) {
+                    JOptionPane.showMessageDialog(frame, "The plan type is: Personal Plan");
+                } else if(foundPlan instanceof ProPlan) {
+                    JOptionPane.showMessageDialog(frame, "The plan type is: Pro Plan");
+                }
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(frame, "An error occurred while checking the plan type.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        // load button
+        loadBtn.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(frame);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    try(BufferedReader reader = new BufferedReader(new FileReader(selectedFile))) {
+                        String line;
+                        StringBuilder fileContent = new StringBuilder();
+                        while ((line = reader.readLine()) != null) {
+                            fileContent.append(line).append("\n");
+                        }
+                        displayArea.setText(fileContent.toString());
+                    } catch(IOException ex) {
+                        JOptionPane.showMessageDialog(frame, "An error occurred while loading the file.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+        });
+
+        // export button 
+        exportBtn.addActionListener(e -> {
+            try(BufferedWriter writer = new BufferedWriter(new FileWriter("Membership.txt"))) {
+                for(AIModel plan: plans) {
+                    writer.write(plan.displayOutput() + "\n");
+                    writer.write("-------------------\n");
+                }
+            }catch(IOException ex) {
+                JOptionPane.showMessageDialog(frame, "An error occurred while exporting the plans.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        });
+
 
         // clear button
         clearBtn.addActionListener(e -> {
