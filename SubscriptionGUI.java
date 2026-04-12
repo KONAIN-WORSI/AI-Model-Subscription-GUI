@@ -311,7 +311,7 @@ public class SubscriptionGUI {
 
         });
 
-
+        
         // clear button
         clearBtn.addActionListener(e -> {
             modelNameField.setText("");
