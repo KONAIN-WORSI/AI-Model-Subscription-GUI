@@ -28,7 +28,7 @@ public class SubscriptionGUI {
         JTextField responseLengthField = new JTextField(25);
         JTextField teamMemberField = new JTextField(25);
 
-        // ============ LEFT PANEL (FORM) ============
+        // LEFT PANEL  
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(null);
 
@@ -64,45 +64,45 @@ public class SubscriptionGUI {
 
         leftPanel.add(modelSection);
 
-        // Plan settings group
-        JPanel planSection = new JPanel();
-        planSection.setLayout(null);
-        planSection.setBorder(BorderFactory.createTitledBorder("Plan Settings"));
-        planSection.setBounds(10, 200, 340, 140);
-
-        JLabel teamSlotsLabel = new JLabel("Team Slots:");
-        teamSlotsLabel.setBounds(15, 25, 110, 25);
-        planSection.add(teamSlotsLabel);
-        teamSlotsField.setBounds(130, 25, 190, 25);
-        planSection.add(teamSlotsField);
-
-        JLabel promptLabel = new JLabel("Prompt:");
-        promptLabel.setBounds(15, 55, 110, 25);
-        planSection.add(promptLabel);
-        promptField.setBounds(130, 55, 190, 25);
-        planSection.add(promptField);
-
-        JLabel responseLengthLabel = new JLabel("Response Length:");
-        responseLengthLabel.setBounds(15, 85, 110, 25);
-        planSection.add(responseLengthLabel);
-        responseLengthField.setBounds(130, 85, 190, 25);
-        planSection.add(responseLengthField);
-
-        leftPanel.add(planSection);
-
-        // Team management group
+        //  team management group
         JPanel teamSection = new JPanel();
         teamSection.setLayout(null);
         teamSection.setBorder(BorderFactory.createTitledBorder("Team Management"));
-        teamSection.setBounds(10, 350, 340, 100);
+        teamSection.setBounds(10, 200, 340, 110);
+
+        JLabel teamSlotsLabel = new JLabel("Team Slots:");
+        teamSlotsLabel.setBounds(15, 25, 110, 25);
+        teamSection.add(teamSlotsLabel);
+        teamSlotsField.setBounds(130, 25, 190, 25);
+        teamSection.add(teamSlotsField);
 
         JLabel teamMemberLabel = new JLabel("Team Member Name:");
-        teamMemberLabel.setBounds(15, 25, 125, 25);
+        teamMemberLabel.setBounds(15, 65, 135, 25);
         teamSection.add(teamMemberLabel);
-        teamMemberField.setBounds(160, 25, 170, 25);
+        teamMemberField.setBounds(160, 65, 160, 25);
         teamSection.add(teamMemberField);
 
         leftPanel.add(teamSection);
+
+        // prompt settings group
+        JPanel promptSection = new JPanel();
+        promptSection.setLayout(null);
+        promptSection.setBorder(BorderFactory.createTitledBorder("Prompt Settings"));
+        promptSection.setBounds(10, 320, 340, 110);
+
+        JLabel promptLabel = new JLabel("Prompt:");
+        promptLabel.setBounds(15, 25, 110, 25);
+        promptSection.add(promptLabel);
+        promptField.setBounds(130, 25, 190, 25);
+        promptSection.add(promptField);
+
+        JLabel responseLengthLabel = new JLabel("Response Length:");
+        responseLengthLabel.setBounds(15, 65, 110, 25);
+        promptSection.add(responseLengthLabel);
+        responseLengthField.setBounds(130, 65, 190, 25);
+        promptSection.add(responseLengthField);
+
+        leftPanel.add(promptSection);
 
         // Set left panel size
         leftPanel.setPreferredSize(new Dimension(360, 470));
@@ -111,14 +111,14 @@ public class SubscriptionGUI {
         JScrollPane leftScrollPane = new JScrollPane(leftPanel);
         leftScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-        // ============ CENTER PANEL (DISPLAY AREA) ============
+        //  CENTER PANEL  
         JTextArea displayArea = new JTextArea();
         displayArea.setFont(new Font("Roboto Bold", Font.PLAIN, 11));
         displayArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(displayArea);
         scrollPane.setBorder(BorderFactory.createTitledBorder("Output Display"));
 
-        // ============ BUTTONS ============
+        //  BUTTONS 
         JButton addPersonal = new JButton("Add Personal Plan");
         JButton addPro = new JButton("Add Pro Plan");
         JButton displayPlans = new JButton("Display Plans");
@@ -141,7 +141,6 @@ public class SubscriptionGUI {
         exportBtn.setPreferredSize(buttonSize);
         loadBtn.setPreferredSize(buttonSize);
 
-        // Main layout - NULL LAYOUT
         frame.setLayout(null);
 
         // Position components manually
@@ -180,7 +179,7 @@ public class SubscriptionGUI {
 
         frame.setVisible(true);
 
-        // ============ EVENT HANDLING ============
+        // Event handling
 
         // Personal Plan Button
         addPersonal.addActionListener(e -> {
@@ -241,14 +240,32 @@ public class SubscriptionGUI {
                 }
 
                 String modelName = modelNameField.getText();
+                
+                for (AIModel p : plans) {
+                    if (p instanceof ProPlan && p.getModelName().equals(modelName)) {
+                        String result = ((ProPlan) p).addTeamMember(teamMember);
+                        if (result.startsWith("ERROR")) {
+                            JOptionPane.showMessageDialog(frame, result, "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(frame, result);
+                        }
+                        return;
+                    }
+                }
+
                 double price = Double.parseDouble(priceField.getText());
                 int parameterCount = Integer.parseInt(parametersField.getText());
                 int contextWindow = Integer.parseInt(contextWindowField.getText());
                 int teamSlots = Integer.parseInt(teamSlotsField.getText());
 
                 ProPlan proPlan = new ProPlan(modelName, price, parameterCount, contextWindow, teamSlots);
-                proPlan.addTeamMember(teamMember);
-                JOptionPane.showMessageDialog(frame, "Team member added successfully!");
+                String result = proPlan.addTeamMember(teamMember);
+                if (result.startsWith("ERROR")) {
+                    JOptionPane.showMessageDialog(frame, result, "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    plans.add(proPlan);
+                    JOptionPane.showMessageDialog(frame, "Team member added successfully to a new Pro Plan!");
+                }
 
             } catch(Exception ex) {
                 JOptionPane.showMessageDialog(frame, "An error occurred while adding the team member.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -278,6 +295,16 @@ public class SubscriptionGUI {
                 JOptionPane.showMessageDialog(frame, "An error occurred while checking the plan type.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+        // // prompt button
+        // promptBtn.addActionListener(e -> {
+        //     try{
+                
+
+        //     }catch(Exception ex) {
+        //         JOptionPane.showMessageDialog(frame, "An error occurred while processing the prompt.", "Error", JOptionPane.ERROR_MESSAGE); 
+        //     }
+        // //});
 
         // load button
         loadBtn.addActionListener(e -> {
