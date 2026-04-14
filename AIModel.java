@@ -12,10 +12,10 @@ abstract class AIModel
     private int paramaterCount;
     private int contextWindow;
     
-    AIModel(String modelName, double price, int paramaterCount, int contextWindow) {
+    AIModel(String modelName, double price, int parameterCount, int contextWindow) {
        this.modelName = modelName;
        this.price = price;
-       this.paramaterCount = paramaterCount;
+       this.paramaterCount = parameterCount;
        this.contextWindow = contextWindow;
     }
     
@@ -40,6 +40,8 @@ abstract class AIModel
         boolean tokenValidation = (totalTokens <= contextWindow) ? true : false;
         return tokenValidation;
     }
-    
+
+    public abstract void enterPrompt(String promptText, int responseTokens);
     public abstract String displayOutput();
+    
 }

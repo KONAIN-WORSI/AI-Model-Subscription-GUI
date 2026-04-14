@@ -11,8 +11,8 @@ public class ProPlan extends AIModel
     private int availableSlots;
     private ArrayList<String> teamMember = new ArrayList<>();
     
-    ProPlan(String modelName, double price, int paramaterCount, int contextWindow, int availableSlots) {
-        super(modelName, price, paramaterCount, contextWindow);
+    ProPlan(String modelName, double price, int parameterCount, int contextWindow, int availableSlots) {
+        super(modelName, price, parameterCount, contextWindow);
         this.availableSlots = availableSlots;
     }
 
@@ -44,6 +44,16 @@ public class ProPlan extends AIModel
         else {
             return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
         }   
+    }
+
+    public void enterPrompt(String promptText, int responseTokens) {
+        if(responseTokens <= getContextWindow()) {
+            calculateTokenUsage(responseTokens, responseTokens, responseTokens);
+            System.out.println("Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
+                +  "Expected Tokens: " + responseTokens);
+        }else {
+            System.out.println("Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
+        }
     }
     
     @Override

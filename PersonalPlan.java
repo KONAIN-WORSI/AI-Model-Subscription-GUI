@@ -9,8 +9,8 @@ public class PersonalPlan extends AIModel
 {
     private int promptsRemaining;
     
-    PersonalPlan(String modelName, double price, int paramaterCount, int contextWindow, int promptsQuota) {
-        super(modelName, price, paramaterCount, contextWindow);
+    PersonalPlan(String modelName, double price, int parameterCount, int contextWindow, int promptsQuota) {
+        super(modelName, price, parameterCount, contextWindow);
         this.promptsRemaining  = promptsQuota;
     }
     
@@ -42,6 +42,21 @@ public class PersonalPlan extends AIModel
         }else {
             return "Monthly plan limit reached. Please upgrade your plan.";
         }
+    }
+
+    @Override
+    public void enterPrompt(String promptText, int responseTokens) {
+        if(promptsRemaining > 0 && responseTokens <= getContextWindow()) {
+            calculateTokenUsage(responseTokens, responseTokens, responseTokens);
+            promptsRemaining--;
+            System.out.println("Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
+                +  "Expected Tokens: " + responseTokens + "\n"
+                +  "Remaining prompts: " + promptsRemaining);
+        }else if (responseTokens > getContextWindow()) {
+            System.out.println("Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
+        }else {
+            System.out.println("Monthly plan limit reached. Please upgrade your plan.");
+        } 
     }
     
     @Override
