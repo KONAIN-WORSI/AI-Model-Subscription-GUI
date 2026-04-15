@@ -27,6 +27,7 @@ public class SubscriptionGUI {
         JTextField promptField = new JTextField(25);
         JTextField responseLengthField = new JTextField(25);
         JTextField teamMemberField = new JTextField(25);
+        JTextField indexField = new JTextField(25);
 
         // LEFT PANEL  
         JPanel leftPanel = new JPanel();
@@ -88,7 +89,7 @@ public class SubscriptionGUI {
         JPanel promptSection = new JPanel();
         promptSection.setLayout(null);
         promptSection.setBorder(BorderFactory.createTitledBorder("Prompt Settings"));
-        promptSection.setBounds(10, 320, 340, 110);
+        promptSection.setBounds(10, 320, 340, 150);
 
         JLabel promptLabel = new JLabel("Prompt:");
         promptLabel.setBounds(15, 25, 110, 25);
@@ -101,6 +102,12 @@ public class SubscriptionGUI {
         promptSection.add(responseLengthLabel);
         responseLengthField.setBounds(130, 65, 190, 25);
         promptSection.add(responseLengthField);
+
+        JLabel indexLabel = new JLabel("Index: ");
+        indexLabel.setBounds(15, 100, 110, 25);
+        indexField.setBounds(130, 100, 190, 25);
+        promptSection.add(indexLabel);
+        promptSection.add(indexField);
 
         leftPanel.add(promptSection);
 
@@ -296,15 +303,33 @@ public class SubscriptionGUI {
             }
         });
 
-        // // prompt button
-        // promptBtn.addActionListener(e -> {
-        //     try{
-                
+        // prompt button
+        promptBtn.addActionListener(e -> {
+            try{
+                String promptText = promptField.getText();
+                int responseTokens = Integer.parseInt(responseLengthField.getText());
+                int index = Integer.parseInt(indexField.getText());
 
-        //     }catch(Exception ex) {
-        //         JOptionPane.showMessageDialog(frame, "An error occurred while processing the prompt.", "Error", JOptionPane.ERROR_MESSAGE); 
-        //     }
-        // //});
+                if(index < 0 || index >= plans.size()) {
+                    JOptionPane.showMessageDialog(frame, "Invalid index! Please enter a valid plan index.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                PersonalPlan personalPlan = null;
+                ProPlan proPlan = null;
+
+                if(plans.get(index) instanceof PersonalPlan) {
+                    personalPlan = (PersonalPlan) plans.get(index);
+                    personalPlan.enterPrompt(promptText, responseTokens);
+                } else if(plans.get(index) instanceof ProPlan) {
+                    proPlan = (ProPlan) plans.get(index);
+                    proPlan.enterPrompt(promptText, responseTokens);
+                }
+
+            }catch(Exception ex) {
+                JOptionPane.showMessageDialog(frame, "An error occurred while processing the prompt.", "Error", JOptionPane.ERROR_MESSAGE); 
+            }
+        });
 
         // load button
         loadBtn.addActionListener(e -> {
@@ -351,6 +376,7 @@ public class SubscriptionGUI {
             promptField.setText("");
             responseLengthField.setText("");
             teamSlotsField.setText("");
+            indexField.setText("");
         });
 
         // display button
@@ -367,3 +393,7 @@ public class SubscriptionGUI {
         });
     }
 }
+
+
+
+

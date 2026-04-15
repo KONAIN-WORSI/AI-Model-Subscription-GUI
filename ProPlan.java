@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import javax.swing.*;
 /**
  * Write a description of class ProPlan here.
  *
@@ -36,23 +36,23 @@ public class ProPlan extends AIModel
         }
     }
 
-    public String usePrompt(String promptText, int expectedTokens, int outputTokens, int systemTokens) {
-        if(calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
-            return "Prompt accepted \n"
-                +  "Prompt: " + promptText + "\n"
-                +  "Expected Tokens: " + expectedTokens;
-        else {
-            return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
-        }   
-    }
+    // public String usePrompt(String promptText, int expectedTokens, int outputTokens, int systemTokens) {
+    //     if(calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
+    //         return "Prompt accepted \n"
+    //             +  "Prompt: " + promptText + "\n"
+    //             +  "Expected Tokens: " + expectedTokens;
+    //     else {
+    //         return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
+    //     }   
+    // }
 
     public void enterPrompt(String promptText, int responseTokens) {
         if(responseTokens <= getContextWindow()) {
             calculateTokenUsage(responseTokens, responseTokens, responseTokens);
-            System.out.println("Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
+            JOptionPane.showMessageDialog(null, "Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
                 +  "Expected Tokens: " + responseTokens);
         }else {
-            System.out.println("Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
+            JOptionPane.showMessageDialog(null, "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
         }
     }
     
@@ -64,4 +64,5 @@ public class ProPlan extends AIModel
             + "\nContext Window Size: " + getContextWindow()
             + "\nAvailable Team Slots: " + availableSlots;
     }
+
 }

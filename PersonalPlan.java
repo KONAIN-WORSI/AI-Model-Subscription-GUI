@@ -1,4 +1,5 @@
-
+import java.util.ArrayList;
+import javax.swing.*;
 /**
  * Write a description of class PersonalPlan here.
  *
@@ -28,34 +29,34 @@ public class PersonalPlan extends AIModel
         return "You have successfully purchased prompts. Your remaining prompts: " + buyPrompts; 
     }
     
-    public String usePrompt(String promptText, int expectedTokens, int systemTokens, int outputTokens) {
-        if(!calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
-            return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
+    // public String usePrompt(String promptText, int expectedTokens, int systemTokens, int outputTokens) {
+    //     if(!calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
+    //         return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
 
-        if (promptsRemaining > 0) {
-            promptsRemaining--;
+    //     if (promptsRemaining > 0) {
+    //         promptsRemaining--;
             
-            return "Prompt accepted \n"
-                +  "Prompt: " + promptText + "\n"
-                +  "Expected Tokens: " + expectedTokens + "\n"
-                +  "Remaining prompts: " + promptsRemaining;
-        }else {
-            return "Monthly plan limit reached. Please upgrade your plan.";
-        }
-    }
+    //         return "Prompt accepted \n"
+    //             +  "Prompt: " + promptText + "\n"
+    //             +  "Expected Tokens: " + expectedTokens + "\n"
+    //             +  "Remaining prompts: " + promptsRemaining;
+    //     }else {
+    //         return "Monthly plan limit reached. Please upgrade your plan.";
+    //     }
+    // }
 
     @Override
     public void enterPrompt(String promptText, int responseTokens) {
         if(promptsRemaining > 0 && responseTokens <= getContextWindow()) {
             calculateTokenUsage(responseTokens, responseTokens, responseTokens);
             promptsRemaining--;
-            System.out.println("Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
+            JOptionPane.showMessageDialog(null, "Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
                 +  "Expected Tokens: " + responseTokens + "\n"
                 +  "Remaining prompts: " + promptsRemaining);
         }else if (responseTokens > getContextWindow()) {
-            System.out.println("Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
+            JOptionPane.showMessageDialog(null, "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
         }else {
-            System.out.println("Monthly plan limit reached. Please upgrade your plan.");
+            JOptionPane.showMessageDialog(null, "Monthly plan limit reached. Please upgrade your plan.");
         } 
     }
     
