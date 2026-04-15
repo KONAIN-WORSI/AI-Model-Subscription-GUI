@@ -17,11 +17,15 @@ public class ProPlan extends AIModel
     }
 
     public String addTeamMember(String memberName) {
-        if(availableSlots > 0){
-            teamMember.add(memberName);
-            availableSlots--;
-            return "Team Member added successfully!";
-        }else{
+        if (availableSlots > 0) {
+            if (!teamMember.contains(memberName)) {
+                teamMember.add(memberName);
+                availableSlots--;
+                return "Team Member added successfully";
+            } else {
+                return "ERROR: Team member already exists";
+            }
+        } else {
             return "ERROR: No available team slots";
         }
     }
@@ -46,12 +50,12 @@ public class ProPlan extends AIModel
     //     }   
     // }
 
+    @Override
     public void enterPrompt(String promptText, int responseTokens) {
-        if(responseTokens <= getContextWindow()) {
-            calculateTokenUsage(responseTokens, responseTokens, responseTokens);
+        if (calculateTokenUsage(responseTokens, 0, 0)) {
             JOptionPane.showMessageDialog(null, "Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
                 +  "Expected Tokens: " + responseTokens);
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
         }
     }
@@ -60,7 +64,7 @@ public class ProPlan extends AIModel
     public String displayOutput() {
          return "AI Model Name:" + getModelName() + 
             "\nPrice of Model: " + getPrice() 
-            + "\nParamater Count: " + getParamaterCount() 
+            + "\nParameter Count: " + getParameterCount() 
             + "\nContext Window Size: " + getContextWindow()
             + "\nAvailable Team Slots: " + availableSlots;
     }

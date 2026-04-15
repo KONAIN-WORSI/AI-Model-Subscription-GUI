@@ -246,34 +246,30 @@ public class SubscriptionGUI {
                     return;
                 }
 
-                String modelName = modelNameField.getText();
-                
-                for (AIModel p : plans) {
-                    if (p instanceof ProPlan && p.getModelName().equals(modelName)) {
-                        String result = ((ProPlan) p).addTeamMember(teamMember);
+                int index = Integer.parseInt(indexField.getText());
+
+                if (index != -1) {
+                    if (index < 0 || index >= plans.size()) {
+                        JOptionPane.showMessageDialog(frame, "Invalid index! Please enter a valid plan index.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    AIModel plan = plans.get(index);
+                    if (plan instanceof ProPlan) {
+                        ProPlan proPlan = (ProPlan) plan;
+                        String result = proPlan.addTeamMember(teamMember);
                         if (result.startsWith("ERROR")) {
                             JOptionPane.showMessageDialog(frame, result, "Error", JOptionPane.ERROR_MESSAGE);
                         } else {
                             JOptionPane.showMessageDialog(frame, result);
                         }
-                        return;
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "team collaboration is only available for Pro Plan subscriptions", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 
-                double price = Double.parseDouble(priceField.getText());
-                int parameterCount = Integer.parseInt(parametersField.getText());
-                int contextWindow = Integer.parseInt(contextWindowField.getText());
-                int teamSlots = Integer.parseInt(teamSlotsField.getText());
-
-                ProPlan proPlan = new ProPlan(modelName, price, parameterCount, contextWindow, teamSlots);
-                String result = proPlan.addTeamMember(teamMember);
-                if (result.startsWith("ERROR")) {
-                    JOptionPane.showMessageDialog(frame, result, "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    plans.add(proPlan);
-                    JOptionPane.showMessageDialog(frame, "Team member added successfully to a new Pro Plan!");
-                }
-
+            } catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter a valid index number.", "Error", JOptionPane.ERROR_MESSAGE);
             } catch(Exception ex) {
                 JOptionPane.showMessageDialog(frame, "An error occurred while adding the team member.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -282,22 +278,10 @@ public class SubscriptionGUI {
         // check plan type button
         checkPlanType.addActionListener(e -> {
             try{
-                String modelName = modelNameField.getText();
-                AIModel foundPlan = null;
-                for(AIModel plan : plans) {
-                    if(plan.getModelName().equalsIgnoreCase(modelName)) {
-                        foundPlan = plan;
-                        break;
-                    }
-                }
-
-                if(foundPlan == null) {
-                    JOptionPane.showMessageDialog(frame, "No plan found with the given model name.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else if(foundPlan instanceof PersonalPlan) {
-                    JOptionPane.showMessageDialog(frame, "The plan type is: Personal Plan");
-                } else if(foundPlan instanceof ProPlan) {
-                    JOptionPane.showMessageDialog(frame, "The plan type is: Pro Plan");
-                }
+                int index = Integer.parseInt(indexField.getText());
+                checkPlanType(index, plans, frame);
+            } catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter a valid index number.", "Error", JOptionPane.ERROR_MESSAGE);
             } catch(Exception ex) {
                 JOptionPane.showMessageDialog(frame, "An error occurred while checking the plan type.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -310,20 +294,24 @@ public class SubscriptionGUI {
                 int responseTokens = Integer.parseInt(responseLengthField.getText());
                 int index = Integer.parseInt(indexField.getText());
 
+                if(index == -1) {
+                    JOptionPane.showMessageDialog(frame, "Invalid index! No plan selected.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 if(index < 0 || index >= plans.size()) {
                     JOptionPane.showMessageDialog(frame, "Invalid index! Please enter a valid plan index.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                PersonalPlan personalPlan = null;
-                ProPlan proPlan = null;
-
                 if(plans.get(index) instanceof PersonalPlan) {
-                    personalPlan = (PersonalPlan) plans.get(index);
+                    PersonalPlan personalPlan = (PersonalPlan) plans.get(index);
                     personalPlan.enterPrompt(promptText, responseTokens);
                 } else if(plans.get(index) instanceof ProPlan) {
-                    proPlan = (ProPlan) plans.get(index);
+                    ProPlan proPlan = (ProPlan) plans.get(index);
                     proPlan.enterPrompt(promptText, responseTokens);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Invalid index! Please select a valid plan type.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }catch(Exception ex) {
@@ -391,6 +379,22 @@ public class SubscriptionGUI {
                  displayArea.setText(output.toString());
             }
         });
+    }
+
+    public static void checkPlanType(int index, ArrayList<AIModel> plans, JFrame frame) {
+        if (index < 0 || index >= plans.size()) {
+            JOptionPane.showMessageDialog(frame, "Invalid index! Please enter a valid plan index.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        AIModel plan = plans.get(index);
+        if (plan instanceof PersonalPlan) {
+            JOptionPane.showMessageDialog(frame, "Personal Plan");
+        } else if (plan instanceof ProPlan) {
+            JOptionPane.showMessageDialog(frame, "Pro Plan");
+        } else {
+            JOptionPane.showMessageDialog(frame, "Neither Personal nor Pro Plan");
+        }
     }
 }
 

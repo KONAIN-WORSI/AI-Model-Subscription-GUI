@@ -47,24 +47,26 @@ public class PersonalPlan extends AIModel
 
     @Override
     public void enterPrompt(String promptText, int responseTokens) {
-        if(promptsRemaining > 0 && responseTokens <= getContextWindow()) {
-            calculateTokenUsage(responseTokens, responseTokens, responseTokens);
+        if (promptsRemaining <= 0) {
+            JOptionPane.showMessageDialog(null, "Monthly plan limit reached. Please upgrade your plan.");
+            return;
+        }
+
+        if (calculateTokenUsage(responseTokens, 0, 0)) {
             promptsRemaining--;
             JOptionPane.showMessageDialog(null, "Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
                 +  "Expected Tokens: " + responseTokens + "\n"
                 +  "Remaining prompts: " + promptsRemaining);
-        }else if (responseTokens > getContextWindow()) {
+        } else {
             JOptionPane.showMessageDialog(null, "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
-        }else {
-            JOptionPane.showMessageDialog(null, "Monthly plan limit reached. Please upgrade your plan.");
-        } 
+        }
     }
     
     @Override
     public String displayOutput() {
         return "AI Model Name:" + getModelName() + 
             "\nPrice of Model: " + getPrice() 
-            + "\nParamater Count: " + getParamaterCount() 
+            + "\nParameter Count: " + getParameterCount() 
             + "\nContext Window Size: " + getContextWindow() 
             + "\nRemaining Prompts in Monthly Quota: " + promptsRemaining;
     }

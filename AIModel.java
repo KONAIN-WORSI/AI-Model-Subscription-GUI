@@ -9,13 +9,13 @@ abstract class AIModel
 {
     private String modelName;
     private double price;
-    private int paramaterCount;
+    private int parameterCount;
     private int contextWindow;
     
     AIModel(String modelName, double price, int parameterCount, int contextWindow) {
        this.modelName = modelName;
        this.price = price;
-       this.paramaterCount = parameterCount;
+       this.parameterCount = parameterCount;
        this.contextWindow = contextWindow;
     }
     
@@ -27,8 +27,8 @@ abstract class AIModel
         return this.price;
     }
     
-    public int getParamaterCount() {
-        return this.paramaterCount;
+    public int getParameterCount() {
+        return this.parameterCount;
     }
     
     public int getContextWindow() {
