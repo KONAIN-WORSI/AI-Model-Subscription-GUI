@@ -4,12 +4,20 @@ import java.awt.*;
 import java.io.*;
 
 /**
- * Write a description of class SubscriptionGUI here.
+ * Provides a Graphical User Interface (GUI) for managing AI subscription plans.
+ * Allows users to add, view, and interact with Personal and Pro plans.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Konain
+ * @version 1.0
  */
 public class SubscriptionGUI {   
+    
+    /**
+     * Main method that launches the AI Subscription Manager GUI.
+     * Sets up the frame, panels, input fields, and action listeners for all features.
+     * 
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         ArrayList<AIModel> plans = new ArrayList<>();
 
@@ -23,6 +31,7 @@ public class SubscriptionGUI {
         JTextField priceField = new JTextField(25);
         JTextField parametersField = new JTextField(25);
         JTextField contextWindowField = new JTextField(25);
+        JTextField promptsQuotaField = new JTextField(25);
         JTextField teamSlotsField = new JTextField(25);
         JTextField promptField = new JTextField(25);
         JTextField responseLengthField = new JTextField(25);
@@ -37,7 +46,7 @@ public class SubscriptionGUI {
         JPanel modelSection = new JPanel();
         modelSection.setLayout(null);
         modelSection.setBorder(BorderFactory.createTitledBorder("Model Details"));
-        modelSection.setBounds(10, 10, 340, 180);
+        modelSection.setBounds(10, 10, 340, 210);
 
         JLabel modLabel = new JLabel("Model Name:");
         modLabel.setBounds(15, 25, 110, 25);
@@ -63,13 +72,19 @@ public class SubscriptionGUI {
         contextWindowField.setBounds(130, 115, 190, 25);
         modelSection.add(contextWindowField);
 
+        JLabel promptsQuotaLabel = new JLabel("Prompts Quota:");
+        promptsQuotaLabel.setBounds(15, 145, 110, 25);
+        modelSection.add(promptsQuotaLabel);
+        promptsQuotaField.setBounds(130, 145, 190, 25);
+        modelSection.add(promptsQuotaField);
+
         leftPanel.add(modelSection);
 
         //  team management group
         JPanel teamSection = new JPanel();
         teamSection.setLayout(null);
         teamSection.setBorder(BorderFactory.createTitledBorder("Team Management"));
-        teamSection.setBounds(10, 200, 340, 110);
+        teamSection.setBounds(10, 230, 340, 110);
 
         JLabel teamSlotsLabel = new JLabel("Team Slots:");
         teamSlotsLabel.setBounds(15, 25, 110, 25);
@@ -89,7 +104,7 @@ public class SubscriptionGUI {
         JPanel promptSection = new JPanel();
         promptSection.setLayout(null);
         promptSection.setBorder(BorderFactory.createTitledBorder("Prompt Settings"));
-        promptSection.setBounds(10, 320, 340, 150);
+        promptSection.setBounds(10, 350, 340, 150);
 
         JLabel promptLabel = new JLabel("Prompt:");
         promptLabel.setBounds(15, 25, 110, 25);
@@ -112,8 +127,8 @@ public class SubscriptionGUI {
         leftPanel.add(promptSection);
 
         // Set left panel size
-        leftPanel.setPreferredSize(new Dimension(360, 470));
-        leftPanel.setSize(360, 470);
+        leftPanel.setPreferredSize(new Dimension(360, 520));
+        leftPanel.setSize(360, 520);
 
         JScrollPane leftScrollPane = new JScrollPane(leftPanel);
         leftScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -135,6 +150,7 @@ public class SubscriptionGUI {
         JButton checkPlanType = new JButton("Check Plan Type");
         JButton exportBtn = new JButton("Export to File");
         JButton loadBtn = new JButton("Load From File");
+        JButton removeTeamMemberBtn = new JButton("Remove Member");
 
         // Set button sizes
         Dimension buttonSize = new Dimension(140, 35);
@@ -147,6 +163,7 @@ public class SubscriptionGUI {
         checkPlanType.setPreferredSize(buttonSize);
         exportBtn.setPreferredSize(buttonSize);
         loadBtn.setPreferredSize(buttonSize);
+        removeTeamMemberBtn.setPreferredSize(buttonSize);
 
         frame.setLayout(null);
 
@@ -170,6 +187,7 @@ public class SubscriptionGUI {
         checkPlanType.setBounds(startX + 155, buttonY, 140, 35);
         exportBtn.setBounds(startX + 310, buttonY, 140, 35);
         loadBtn.setBounds(startX + 465, buttonY, 140, 35);
+        removeTeamMemberBtn.setBounds(startX + 620, buttonY, 140, 35);
 
         // Add components to frame
         frame.add(leftScrollPane);
@@ -183,6 +201,7 @@ public class SubscriptionGUI {
         frame.add(checkPlanType);
         frame.add(exportBtn);
         frame.add(loadBtn);
+        frame.add(removeTeamMemberBtn);
 
         frame.setVisible(true);
 
@@ -201,8 +220,9 @@ public class SubscriptionGUI {
                 double price = Double.parseDouble(priceField.getText());
                 int parameterCount = Integer.parseInt(parametersField.getText());
                 int contextWindow = Integer.parseInt(contextWindowField.getText());
+                int promptsQuota = Integer.parseInt(promptsQuotaField.getText());
 
-                PersonalPlan personalPlan = new  PersonalPlan(name, price, parameterCount, contextWindow, 500);
+                PersonalPlan personalPlan = new  PersonalPlan(name, price, parameterCount, contextWindow, promptsQuota);
                 plans.add(personalPlan);
                 JOptionPane.showMessageDialog(frame, "Personal Plan created successfully!" + "\n" + personalPlan.displayOutput());
 
@@ -272,6 +292,44 @@ public class SubscriptionGUI {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid index number.", "Error", JOptionPane.ERROR_MESSAGE);
             } catch(Exception ex) {
                 JOptionPane.showMessageDialog(frame, "An error occurred while adding the team member.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        // remove team member button
+        removeTeamMemberBtn.addActionListener(e -> {
+            try{
+                String teamMember = teamMemberField.getText();
+                if(teamMember.isEmpty()){
+                    JOptionPane.showMessageDialog(frame, "Please enter a team member name.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int index = Integer.parseInt(indexField.getText());
+
+                if (index != -1) {
+                    if (index < 0 || index >= plans.size()) {
+                        JOptionPane.showMessageDialog(frame, "Invalid index! Please enter a valid plan index.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    AIModel plan = plans.get(index);
+                    if (plan instanceof ProPlan) {
+                        ProPlan proPlan = (ProPlan) plan;
+                        String result = proPlan.removeTeamMember(teamMember);
+                        if (result.startsWith("ERROR")) {
+                            JOptionPane.showMessageDialog(frame, result, "Error", JOptionPane.ERROR_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(frame, result);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Team collaboration is only available for Pro Plan subscriptions.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+            } catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter a valid index number.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch(Exception ex) {
+                JOptionPane.showMessageDialog(frame, "An error occurred while removing the team member.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -358,12 +416,12 @@ public class SubscriptionGUI {
             priceField.setText("");
             parametersField.setText("");
             contextWindowField.setText("");
+            promptsQuotaField.setText("");
             teamSlotsField.setText("");
             displayArea.setText("");
             teamMemberField.setText("");
             promptField.setText("");
             responseLengthField.setText("");
-            teamSlotsField.setText("");
             indexField.setText("");
         });
 
@@ -381,6 +439,14 @@ public class SubscriptionGUI {
         });
     }
 
+    /**
+     * Checks and displays the type of the selected AI model plan (Personal or Pro).
+     * Validates the provided index against the list of available plans.
+     * 
+     * @param index The selected index from the GUI to check.
+     * @param plans The list of all currently available AI plans.
+     * @param frame The parent JFrame to display the JOptionPane dialogs.
+     */
     public static void checkPlanType(int index, ArrayList<AIModel> plans, JFrame frame) {
         if (index < 0 || index >= plans.size()) {
             JOptionPane.showMessageDialog(frame, "Invalid index! Please enter a valid plan index.", "Error", JOptionPane.ERROR_MESSAGE);

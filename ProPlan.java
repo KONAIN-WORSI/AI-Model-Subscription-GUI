@@ -1,27 +1,43 @@
 import java.util.ArrayList;
 import javax.swing.*;
 /**
- * Write a description of class ProPlan here.
+ * Represents a professional subscription plan for an AI Model.
+ * Inherits from AIModel and allows team collaboration with available slots.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Konain
+ * @version 1.0
  */
 public class ProPlan extends AIModel
 {
     private int availableSlots;
     private ArrayList<String> teamMember = new ArrayList<>();
     
+    /**
+     * Constructor for objects of class ProPlan.
+     * 
+     * @param modelName      The name of the AI model.
+     * @param price          The price of the pro plan.
+     * @param parameterCount The parameter count of the model.
+     * @param contextWindow  The context window size of the model.
+     * @param availableSlots The initial number of team slots available.
+     */
     ProPlan(String modelName, double price, int parameterCount, int contextWindow, int availableSlots) {
         super(modelName, price, parameterCount, contextWindow);
         this.availableSlots = availableSlots;
     }
 
+    /**
+     * Adds a new team member if there are available slots and the member does not already exist.
+     * 
+     * @param memberName The name of the team member to add.
+     * @return A status message indicating success or error.
+     */
     public String addTeamMember(String memberName) {
         if (availableSlots > 0) {
             if (!teamMember.contains(memberName)) {
                 teamMember.add(memberName);
                 availableSlots--;
-                return "Team Member added successfully";
+                return "Team Member added successfully, Slot remaining: " + availableSlots;
             } else {
                 return "ERROR: Team member already exists";
             }
@@ -30,6 +46,12 @@ public class ProPlan extends AIModel
         }
     }
     
+    /**
+     * Removes an existing team member and frees up a slot.
+     * 
+     * @param memberName The name of the team member to remove.
+     * @return A status message indicating success or error.
+     */
     public String removeTeamMember(String memberName) {
         if(teamMember.contains(memberName)){
             teamMember.remove(memberName);
@@ -50,6 +72,13 @@ public class ProPlan extends AIModel
     //     }   
     // }
 
+    /**
+     * Processes an input prompt for the pro plan.
+     * Displays a success message if the token usage is within the context window limit.
+     * 
+     * @param promptText     The actual text content of the prompt provided by the user.
+     * @param responseTokens The expected number of tokens the model will generate.
+     */
     @Override
     public void enterPrompt(String promptText, int responseTokens) {
         if (calculateTokenUsage(responseTokens, 0, 0)) {
@@ -60,6 +89,11 @@ public class ProPlan extends AIModel
         }
     }
     
+    /**
+     * Generates a formatted string containing the details of the pro plan.
+     * 
+     * @return A string representation including available team slots.
+     */
     @Override
     public String displayOutput() {
          return "AI Model Name:" + getModelName() + 
