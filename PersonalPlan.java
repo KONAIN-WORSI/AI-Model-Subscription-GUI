@@ -8,8 +8,7 @@ import javax.swing.*;
  */
 public class PersonalPlan extends AIModel
 {
-    private int promptsRemaining;
-    
+    private int promptsRemaining;   
     /**
      * Constructor for objects of class PersonalPlan.
      * 
@@ -23,7 +22,6 @@ public class PersonalPlan extends AIModel
         super(modelName, price, parameterCount, contextWindow);
         this.promptsRemaining  = promptsQuota;
     }
-    
     /**
      * Retrieves the remaining number of prompts available in the quota.
      * 
@@ -31,8 +29,7 @@ public class PersonalPlan extends AIModel
      */
     public int getPromptsRemaining() {
         return this.promptsRemaining;
-    }
-    
+    }    
     /**
      * Purchases additional prompts and adds them to the remaining quota.
      * 
@@ -48,23 +45,6 @@ public class PersonalPlan extends AIModel
         this.promptsRemaining = buyPrompts;
         return "You have successfully purchased prompts. Your remaining prompts: " + buyPrompts; 
     }
-    
-    // public String usePrompt(String promptText, int expectedTokens, int systemTokens, int outputTokens) {
-    //     if(!calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
-    //         return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
-
-    //     if (promptsRemaining > 0) {
-    //         promptsRemaining--;
-            
-    //         return "Prompt accepted \n"
-    //             +  "Prompt: " + promptText + "\n"
-    //             +  "Expected Tokens: " + expectedTokens + "\n"
-    //             +  "Remaining prompts: " + promptsRemaining;
-    //     }else {
-    //         return "Monthly plan limit reached. Please upgrade your plan.";
-    //     }
-    // }
-
     /**
      * Processes an input prompt for the personal plan.
      * Decreases the remaining prompts if the token usage is within the context window limit.
@@ -88,8 +68,7 @@ public class PersonalPlan extends AIModel
         } else {
             JOptionPane.showMessageDialog(null, "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.");
         }
-    }
-    
+    }   
     /**
      * Generates a formatted string containing the details of the personal plan.
      * 

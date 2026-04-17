@@ -1,4 +1,3 @@
-
 /**
  * Represents an abstract base class for AI Models.
  * Provides common attributes and behaviors such as model name, price, parameter count, and context window size.
@@ -12,7 +11,6 @@ abstract class AIModel
     private double price;
     private int parameterCount;
     private int contextWindow;
-    
     /**
      * Constructor for objects of class AIModel.
      * 
@@ -27,7 +25,6 @@ abstract class AIModel
        this.parameterCount = parameterCount;
        this.contextWindow = contextWindow;
     }
-    
     /**
      * Retrieves the name of the AI model.
      * 
@@ -35,8 +32,7 @@ abstract class AIModel
      */
     public String getModelName() {
         return this.modelName;
-    }
-    
+    }    
     /**
      * Retrieves the price of the AI model.
      * 
@@ -45,7 +41,6 @@ abstract class AIModel
     public double getPrice() {
         return this.price;
     }
-    
     /**
      * Retrieves the parameter count of the AI model.
      * 
@@ -54,7 +49,6 @@ abstract class AIModel
     public int getParameterCount() {
         return this.parameterCount;
     }
-    
     /**
      * Retrieves the context window size of the AI model.
      * 
@@ -63,7 +57,6 @@ abstract class AIModel
     public int getContextWindow() {
         return this.contextWindow;
     }
-
     /**
      * Calculates if the total token usage is within the allowed context window.
      * 
@@ -77,7 +70,6 @@ abstract class AIModel
         boolean tokenValidation = (totalTokens <= contextWindow) ? true : false;
         return tokenValidation;
     }
-
     /**
      * Processes an input prompt and determines if it can be accepted based on specific model constraints.
      * 
@@ -85,12 +77,10 @@ abstract class AIModel
      * @param responseTokens The expected number of tokens the model will generate.
      */
     public abstract void enterPrompt(String promptText, int responseTokens);
-    
     /**
      * Generates a formatted string containing the details of the AI model.
      * 
      * @return A string representation of the model details.
      */
-    public abstract String displayOutput();
-    
+    public abstract String displayOutput();    
 }

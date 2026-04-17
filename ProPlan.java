@@ -61,17 +61,6 @@ public class ProPlan extends AIModel
             return "ERROR: Team member not found";
         }
     }
-
-    // public String usePrompt(String promptText, int expectedTokens, int outputTokens, int systemTokens) {
-    //     if(calculateTokenUsage(expectedTokens, systemTokens, outputTokens))
-    //         return "Prompt accepted \n"
-    //             +  "Prompt: " + promptText + "\n"
-    //             +  "Expected Tokens: " + expectedTokens;
-    //     else {
-    //         return "Context window exceeded. Please reduce the number of tokens in your prompt or expected output.";
-    //     }   
-    // }
-
     /**
      * Processes an input prompt for the pro plan.
      * Displays a success message if the token usage is within the context window limit.
