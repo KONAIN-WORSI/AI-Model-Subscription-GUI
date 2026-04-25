@@ -1,14 +1,19 @@
 #BlueJ class context
 comment0.target=ProPlan
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ ProPlan\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=modelName\ price\ paramaterCount\ contextWindow\ availableSlots
+comment0.text=\r\n\ Represents\ a\ professional\ subscription\ plan\ for\ an\ AI\ Model.\r\n\ Inherits\ from\ AIModel\ and\ allows\ team\ collaboration\ with\ available\ slots.\r\n\r\n\ @author\ Konain\r\n\ @version\ 1.0\r\n
+comment1.params=modelName\ price\ parameterCount\ contextWindow\ availableSlots
 comment1.target=ProPlan(java.lang.String,\ double,\ int,\ int,\ int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ ProPlan.\r\n\ \r\n\ @param\ modelName\ \ \ \ \ \ The\ name\ of\ the\ AI\ model.\r\n\ @param\ price\ \ \ \ \ \ \ \ \ \ The\ price\ of\ the\ pro\ plan.\r\n\ @param\ parameterCount\ The\ parameter\ count\ of\ the\ model.\r\n\ @param\ contextWindow\ \ The\ context\ window\ size\ of\ the\ model.\r\n\ @param\ availableSlots\ The\ initial\ number\ of\ team\ slots\ available.\r\n
 comment2.params=memberName
 comment2.target=java.lang.String\ addTeamMember(java.lang.String)
+comment2.text=\r\n\ Adds\ a\ new\ team\ member\ if\ there\ are\ available\ slots\ and\ the\ member\ does\ not\ already\ exist.\r\n\ \r\n\ @param\ memberName\ The\ name\ of\ the\ team\ member\ to\ add.\r\n\ @return\ A\ status\ message\ indicating\ success\ or\ error.\r\n
 comment3.params=memberName
 comment3.target=java.lang.String\ removeTeamMember(java.lang.String)
-comment4.params=promptText\ expectedTokens\ outputTokens\ systemTokens
-comment4.target=java.lang.String\ usePrompt(java.lang.String,\ int,\ int,\ int)
+comment3.text=\r\n\ Removes\ an\ existing\ team\ member\ and\ frees\ up\ a\ slot.\r\n\ \r\n\ @param\ memberName\ The\ name\ of\ the\ team\ member\ to\ remove.\r\n\ @return\ A\ status\ message\ indicating\ success\ or\ error.\r\n
+comment4.params=promptText\ responseTokens
+comment4.target=void\ enterPrompt(java.lang.String,\ int)
+comment4.text=\r\n\ Processes\ an\ input\ prompt\ for\ the\ pro\ plan.\r\n\ Displays\ a\ success\ message\ if\ the\ token\ usage\ is\ within\ the\ context\ window\ limit.\r\n\ \r\n\ @param\ promptText\ \ \ \ \ The\ actual\ text\ content\ of\ the\ prompt\ provided\ by\ the\ user.\r\n\ @param\ responseTokens\ The\ expected\ number\ of\ tokens\ the\ model\ will\ generate.\r\n
 comment5.params=
 comment5.target=java.lang.String\ displayOutput()
+comment5.text=\r\n\ Generates\ a\ formatted\ string\ containing\ the\ details\ of\ the\ pro\ plan.\r\n\ \r\n\ @return\ A\ string\ representation\ including\ available\ team\ slots.\r\n
 numComments=6

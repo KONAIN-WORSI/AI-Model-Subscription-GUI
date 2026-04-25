@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=SubscriptionGUI
+comment0.text=\r\n\ Provides\ a\ Graphical\ User\ Interface\ (GUI)\ for\ managing\ AI\ subscription\ plans.\r\n\ Allows\ users\ to\ add,\ view,\ and\ interact\ with\ Personal\ and\ Pro\ plans.\r\n\r\n\ @author\ Konain\r\n\ @version\ 1.0\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment1.text=\r\n\ Main\ method\ that\ launches\ the\ AI\ Subscription\ Manager\ GUI.\r\n\ Sets\ up\ the\ frame,\ panels,\ input\ fields,\ and\ action\ listeners\ for\ all\ features.\r\n\ \r\n\ @param\ args\ Command\ line\ arguments\ (not\ used).\r\n
+comment2.params=index\ plans\ frame
+comment2.target=void\ checkPlanType(int,\ java.util.ArrayList,\ javax.swing.JFrame)
+comment2.text=\r\n\ Checks\ and\ displays\ the\ type\ of\ the\ selected\ AI\ model\ plan\ (Personal\ or\ Pro).\r\n\ Validates\ the\ provided\ index\ against\ the\ list\ of\ available\ plans.\r\n\ \r\n\ @param\ index\ The\ selected\ index\ from\ the\ GUI\ to\ check.\r\n\ @param\ plans\ The\ list\ of\ all\ currently\ available\ AI\ plans.\r\n\ @param\ frame\ The\ parent\ JFrame\ to\ display\ the\ JOptionPane\ dialogs.\r\n
+numComments=3

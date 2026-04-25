@@ -400,6 +400,11 @@ public class SubscriptionGUI {
         exportBtn.addActionListener(e -> {
             try(BufferedWriter writer = new BufferedWriter(new FileWriter("Membership.txt"))) {
                 for(AIModel plan: plans) {
+                    if (plan instanceof PersonalPlan) {
+                         writer.write("=== Personal Plan ===\n");
+                     } else if (plan instanceof ProPlan) {
+                         writer.write("=== Pro Plan ===\n");
+                     }  
                     writer.write(plan.displayOutput() + "\n");
                     writer.write("-------------------\n");
                 }
@@ -432,6 +437,11 @@ public class SubscriptionGUI {
             } else {
                  StringBuilder output = new StringBuilder();
                  for(AIModel plan : plans){
+                     if (plan instanceof PersonalPlan) {
+                         output.append("=== Personal Plan ===\n");
+                     } else if (plan instanceof ProPlan) {
+                         output.append("=== Pro Plan ===\n");
+                     }
                      output.append(plan.displayOutput()).append("\n-------------------\n");
                  }
                  displayArea.setText(output.toString());

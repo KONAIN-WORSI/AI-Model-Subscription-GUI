@@ -1,14 +1,19 @@
 #BlueJ class context
 comment0.target=PersonalPlan
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ PersonalPlan\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=modelName\ price\ paramaterCount\ contextWindow\ promptsQuota
+comment0.text=\r\n\ Represents\ a\ personal\ subscription\ plan\ for\ an\ AI\ Model.\r\n\ Inherits\ from\ AIModel\ and\ manages\ a\ specific\ quota\ of\ prompts.\r\n\r\n\ @author\ Konain\r\n\ @version\ 1.0\r\n
+comment1.params=modelName\ price\ parameterCount\ contextWindow\ promptsQuota
 comment1.target=PersonalPlan(java.lang.String,\ double,\ int,\ int,\ int)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ PersonalPlan.\r\n\ \r\n\ @param\ modelName\ \ \ \ \ \ The\ name\ of\ the\ AI\ model.\r\n\ @param\ price\ \ \ \ \ \ \ \ \ \ The\ price\ of\ the\ personal\ plan.\r\n\ @param\ parameterCount\ The\ parameter\ count\ of\ the\ model.\r\n\ @param\ contextWindow\ \ The\ context\ window\ size\ of\ the\ model.\r\n\ @param\ promptsQuota\ \ \ The\ initial\ quota\ of\ prompts\ available.\r\n
 comment2.params=
 comment2.target=int\ getPromptsRemaining()
+comment2.text=\r\n\ Retrieves\ the\ remaining\ number\ of\ prompts\ available\ in\ the\ quota.\r\n\ \r\n\ @return\ The\ number\ of\ remaining\ prompts.\r\n
 comment3.params=buyPrompts
 comment3.target=java.lang.String\ purchasePrompts(int)
-comment4.params=promptText\ expectedTokens\ systemTokens\ outputTokens
-comment4.target=java.lang.String\ usePrompt(java.lang.String,\ int,\ int,\ int)
+comment3.text=\r\n\ Purchases\ additional\ prompts\ and\ adds\ them\ to\ the\ remaining\ quota.\r\n\ \r\n\ @param\ buyPrompts\ The\ number\ of\ prompts\ to\ purchase.\r\n\ @return\ A\ message\ indicating\ the\ purchase\ status.\r\n
+comment4.params=promptText\ responseTokens
+comment4.target=void\ enterPrompt(java.lang.String,\ int)
+comment4.text=\r\n\ Processes\ an\ input\ prompt\ for\ the\ personal\ plan.\r\n\ Decreases\ the\ remaining\ prompts\ if\ the\ token\ usage\ is\ within\ the\ context\ window\ limit.\r\n\ Displays\ a\ corresponding\ graphical\ message.\r\n\ \r\n\ @param\ promptText\ \ \ \ \ The\ actual\ text\ content\ of\ the\ prompt\ provided\ by\ the\ user.\r\n\ @param\ responseTokens\ The\ expected\ number\ of\ tokens\ the\ model\ will\ generate.\r\n
 comment5.params=
 comment5.target=java.lang.String\ displayOutput()
+comment5.text=\r\n\ Generates\ a\ formatted\ string\ containing\ the\ details\ of\ the\ personal\ plan.\r\n\ \r\n\ @return\ A\ string\ representation\ including\ the\ remaining\ prompts.\r\n
 numComments=6

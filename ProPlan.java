@@ -85,11 +85,16 @@ public class ProPlan extends AIModel
      */
     @Override
     public String displayOutput() {
-         return "AI Model Name:" + getModelName() + 
+         String output = "AI Model Name:" + getModelName() + 
             "\nPrice of Model: " + getPrice() 
             + "\nParameter Count: " + getParameterCount() 
             + "\nContext Window Size: " + getContextWindow()
             + "\nAvailable Team Slots: " + availableSlots;
+            
+         if (!teamMember.isEmpty()) {
+             output += "\nTeam Members: " + String.join(", ", teamMember);
+         }
+         return output;
     }
 
 }
