@@ -38,12 +38,11 @@ public class PersonalPlan extends AIModel
      */
     public String purchasePrompts(int buyPrompts) {
         if (buyPrompts <= 0) {
-            System.out.println("Please enter a positive number to purchase additional prompts!");
+            return "ERROR: Please enter a positive number of prompts to purchase.";
         }
 
-        buyPrompts += this.promptsRemaining;
-        this.promptsRemaining = buyPrompts;
-        return "You have successfully purchased prompts. Your remaining prompts: " + buyPrompts; 
+        this.promptsRemaining += buyPrompts;
+        return "You have successfully purchased prompts. Your remaining prompts: " + this.promptsRemaining;
     }
     /**
      * Processes an input prompt for the personal plan.

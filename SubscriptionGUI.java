@@ -37,6 +37,8 @@ public class SubscriptionGUI {
         JTextField responseLengthField = new JTextField(25);
         JTextField teamMemberField = new JTextField(25);
         JTextField indexField = new JTextField(25);
+        JTextField modelIndexField = new JTextField(25);
+        JTextField buyPromptField = new JTextField(25);
 
         // LEFT PANEL  
         JPanel leftPanel = new JPanel();
@@ -46,27 +48,27 @@ public class SubscriptionGUI {
         JPanel modelSection = new JPanel();
         modelSection.setLayout(null);
         modelSection.setBorder(BorderFactory.createTitledBorder("Model Details"));
-        modelSection.setBounds(10, 10, 340, 210);
+        modelSection.setBounds(10, 10, 340, 280);
 
-        JLabel modLabel = new JLabel("Model Name:");
+        JLabel modLabel = new JLabel("*Model Name:");
         modLabel.setBounds(15, 25, 110, 25);
         modelSection.add(modLabel);
         modelNameField.setBounds(130, 25, 190, 25);
         modelSection.add(modelNameField);
 
-        JLabel priceLabel = new JLabel("Price ($):");
+        JLabel priceLabel = new JLabel("*Price ($):");
         priceLabel.setBounds(15, 55, 110, 25);
         modelSection.add(priceLabel);
         priceField.setBounds(130, 55, 190, 25);
         modelSection.add(priceField);
 
-        JLabel parametersLabel = new JLabel("Parameter Count:");
+        JLabel parametersLabel = new JLabel("*Parameter Count:");
         parametersLabel.setBounds(15, 85, 110, 25);
         modelSection.add(parametersLabel);
         parametersField.setBounds(130, 85, 190, 25);
         modelSection.add(parametersField);
 
-        JLabel contextWindowLabel = new JLabel("Context Window:");
+        JLabel contextWindowLabel = new JLabel("*Context Window:");
         contextWindowLabel.setBounds(15, 115, 110, 25);
         modelSection.add(contextWindowLabel);
         contextWindowField.setBounds(130, 115, 190, 25);
@@ -78,33 +80,32 @@ public class SubscriptionGUI {
         promptsQuotaField.setBounds(130, 145, 190, 25);
         modelSection.add(promptsQuotaField);
 
-        leftPanel.add(modelSection);
-
-        //  team management group
-        JPanel teamSection = new JPanel();
-        teamSection.setLayout(null);
-        teamSection.setBorder(BorderFactory.createTitledBorder("Team Management"));
-        teamSection.setBounds(10, 230, 340, 110);
-
         JLabel teamSlotsLabel = new JLabel("Team Slots:");
-        teamSlotsLabel.setBounds(15, 25, 110, 25);
-        teamSection.add(teamSlotsLabel);
-        teamSlotsField.setBounds(130, 25, 190, 25);
-        teamSection.add(teamSlotsField);
+        teamSlotsLabel.setBounds(15, 175, 110, 25);
+        modelSection.add(teamSlotsLabel);
+        teamSlotsField.setBounds(130, 175, 190, 25);
+        modelSection.add(teamSlotsField);
 
         JLabel teamMemberLabel = new JLabel("Team Member Name:");
-        teamMemberLabel.setBounds(15, 65, 135, 25);
-        teamSection.add(teamMemberLabel);
-        teamMemberField.setBounds(160, 65, 160, 25);
-        teamSection.add(teamMemberField);
+        teamMemberLabel.setBounds(15, 205, 135, 25);
+        modelSection.add(teamMemberLabel);
+        teamMemberField.setBounds(160, 205, 160, 25);
+        modelSection.add(teamMemberField);
 
-        leftPanel.add(teamSection);
+        JLabel modelIndexLabel = new JLabel("Index: ");
+        modelIndexLabel.setBounds(15, 235, 110, 25);
+        modelSection.add(modelIndexLabel);
+        modelIndexField.setBounds(130, 235, 190, 25);
+        modelSection.add(modelIndexField);
+
+        leftPanel.add(modelSection);
+
 
         // prompt settings group
         JPanel promptSection = new JPanel();
         promptSection.setLayout(null);
         promptSection.setBorder(BorderFactory.createTitledBorder("Prompt Settings"));
-        promptSection.setBounds(10, 350, 340, 150);
+        promptSection.setBounds(10, 330, 340, 200);
 
         JLabel promptLabel = new JLabel("Prompt:");
         promptLabel.setBounds(15, 25, 110, 25);
@@ -118,9 +119,15 @@ public class SubscriptionGUI {
         responseLengthField.setBounds(130, 65, 190, 25);
         promptSection.add(responseLengthField);
 
+        JLabel buyPromptLabel = new JLabel("Buy Prompts:");
+        buyPromptLabel.setBounds(15, 105, 110, 25);
+        promptSection.add(buyPromptLabel);
+        buyPromptField.setBounds(130, 105, 190, 25);
+        promptSection.add(buyPromptField);
+
         JLabel indexLabel = new JLabel("Index: ");
-        indexLabel.setBounds(15, 100, 110, 25);
-        indexField.setBounds(130, 100, 190, 25);
+        indexLabel.setBounds(15, 145, 110, 25);
+        indexField.setBounds(130, 145, 190, 25);
         promptSection.add(indexLabel);
         promptSection.add(indexField);
 
@@ -151,6 +158,7 @@ public class SubscriptionGUI {
         JButton exportBtn = new JButton("Export to File");
         JButton loadBtn = new JButton("Load From File");
         JButton removeTeamMemberBtn = new JButton("Remove Member");
+        JButton buyPromptBtn = new JButton("Buy Prompt");
 
         // Set button sizes
         Dimension buttonSize = new Dimension(140, 35);
@@ -164,6 +172,7 @@ public class SubscriptionGUI {
         exportBtn.setPreferredSize(buttonSize);
         loadBtn.setPreferredSize(buttonSize);
         removeTeamMemberBtn.setPreferredSize(buttonSize);
+        buyPromptBtn.setPreferredSize(buttonSize);
 
         frame.setLayout(null);
 
@@ -180,6 +189,7 @@ public class SubscriptionGUI {
         displayPlans.setBounds(startX + 310, buttonY, 140, 35);
         promptBtn.setBounds(startX + 465, buttonY, 140, 35);
         clearBtn.setBounds(startX + 620, buttonY, 140, 35);
+        buyPromptBtn.setBounds(startX + 775, buttonY, 140, 35);
 
         // Second row of buttons
         buttonY += 45;
@@ -202,6 +212,7 @@ public class SubscriptionGUI {
         frame.add(exportBtn);
         frame.add(loadBtn);
         frame.add(removeTeamMemberBtn);
+        frame.add(buyPromptBtn);
 
         frame.setVisible(true);
 
@@ -266,7 +277,7 @@ public class SubscriptionGUI {
                     return;
                 }
 
-                int index = Integer.parseInt(indexField.getText());
+                int index = Integer.parseInt(modelIndexField.getText());
 
                 if (index != -1) {
                     if (index < 0 || index >= plans.size()) {
@@ -304,7 +315,7 @@ public class SubscriptionGUI {
                     return;
                 }
 
-                int index = Integer.parseInt(indexField.getText());
+                int index = Integer.parseInt(modelIndexField.getText());
 
                 if (index != -1) {
                     if (index < 0 || index >= plans.size()) {
@@ -336,7 +347,7 @@ public class SubscriptionGUI {
         // check plan type button
         checkPlanType.addActionListener(e -> {
             try{
-                int index = Integer.parseInt(indexField.getText());
+                int index = Integer.parseInt(modelIndexField.getText());
                 checkPlanType(index, plans, frame);
             } catch(NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid index number.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -372,8 +383,45 @@ public class SubscriptionGUI {
                     JOptionPane.showMessageDialog(frame, "Invalid index! Please select a valid plan type.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 
-            }catch(Exception ex) {
+            }catch(NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter valid numeric values for prompt tokens and index.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch(Exception ex) {
                 JOptionPane.showMessageDialog(frame, "An error occurred while processing the prompt.", "Error", JOptionPane.ERROR_MESSAGE); 
+            }
+        });
+
+        // buy prompt button
+        buyPromptBtn.addActionListener(e -> {
+            try {
+                int index = Integer.parseInt(indexField.getText());
+                int buyAmount = Integer.parseInt(buyPromptField.getText());
+
+                if (index < 0 || index >= plans.size()) {
+                    JOptionPane.showMessageDialog(frame, "Invalid index! Please enter a valid plan index.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (buyAmount <= 0) {
+                    JOptionPane.showMessageDialog(frame, "Please enter a positive number of prompts to purchase.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                AIModel plan = plans.get(index);
+                if (plan instanceof PersonalPlan) {
+                    PersonalPlan personalPlan = (PersonalPlan) plan;
+                    String result = personalPlan.purchasePrompts(buyAmount);
+                    if (result.startsWith("ERROR")) {
+                        JOptionPane.showMessageDialog(frame, result, "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, result);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Buying prompts is only available for Personal Plans.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter valid whole numbers for the plan index and prompts to purchase.", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "An error occurred while purchasing prompts.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -428,6 +476,8 @@ public class SubscriptionGUI {
             promptField.setText("");
             responseLengthField.setText("");
             indexField.setText("");
+            modelIndexField.setText("");
+            buyPromptBtn.setText("");
         });
 
         // display button
