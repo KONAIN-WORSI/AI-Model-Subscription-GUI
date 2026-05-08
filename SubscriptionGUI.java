@@ -81,98 +81,118 @@ public class SubscriptionGUI {
         JPanel modelPanel = new JPanel();
         modelPanel.setLayout(null);
         modelPanel.setBorder(BorderFactory.createTitledBorder("Model Details"));
+
         // Model details
         JLabel modLabel = new JLabel("*Model Name:");
         modLabel.setBounds(15, 25, 110, 25);
         modelPanel.add(modLabel);
         modelNameField.setBounds(130, 25, 190, 25);
         modelPanel.add(modelNameField);
+
         JLabel priceLabel = new JLabel("*Price ($):");
         priceLabel.setBounds(15, 55, 110, 25);
         modelPanel.add(priceLabel);
         priceField.setBounds(130, 55, 190, 25);
         modelPanel.add(priceField);
+
         JLabel parametersLabel = new JLabel("*Parameter Count:");
         parametersLabel.setBounds(15, 85, 110, 25);
         modelPanel.add(parametersLabel);
         parametersField.setBounds(130, 85, 190, 25);
         modelPanel.add(parametersField);
+
         JLabel contextWindowLabel = new JLabel("*Context Window:");
         contextWindowLabel.setBounds(15, 115, 110, 25);
         modelPanel.add(contextWindowLabel);
         contextWindowField.setBounds(130, 115, 190, 25);
         modelPanel.add(contextWindowField);
+
         JLabel promptsQuotaLabel = new JLabel("Prompts Quota:");
         promptsQuotaLabel.setBounds(15, 145, 110, 25);
         modelPanel.add(promptsQuotaLabel);
         promptsQuotaField.setBounds(130, 145, 190, 25);
         modelPanel.add(promptsQuotaField);
+
         JLabel teamSlotsLabel = new JLabel("Team Slots:");
         teamSlotsLabel.setBounds(15, 175, 110, 25);
         modelPanel.add(teamSlotsLabel);
         teamSlotsField.setBounds(130, 175, 190, 25);
         modelPanel.add(teamSlotsField);
+
         // Buttons
         addPersonal.setBounds(10, 210, 140, 35);
         modelPanel.add(addPersonal);
         addPro.setBounds(160, 210, 140, 35);
         modelPanel.add(addPro);
+
         // Prompt Setting Panel
         JPanel promptPanel = new JPanel();
         promptPanel.setLayout(null);
         promptPanel.setBorder(BorderFactory.createTitledBorder("Prompt Settings"));
+
         // Prompt settings
         JLabel promptLabel = new JLabel("Prompt:");
         promptLabel.setBounds(15, 25, 110, 25);
         promptPanel.add(promptLabel);
         promptField.setBounds(130, 25, 190, 25);
         promptPanel.add(promptField);
+
         JLabel responseLengthLabel = new JLabel("Response Length:");
         responseLengthLabel.setBounds(15, 55, 110, 25);
         promptPanel.add(responseLengthLabel);
         responseLengthField.setBounds(130, 55, 190, 25);
         promptPanel.add(responseLengthField);
+
         JLabel buyPromptLabel = new JLabel("Buy Prompts:");
         buyPromptLabel.setBounds(15, 85, 110, 25);
         promptPanel.add(buyPromptLabel);
         buyPromptField.setBounds(130, 85, 190, 25);
         promptPanel.add(buyPromptField);
+
         JLabel indexLabel = new JLabel("Index: ");
         indexLabel.setBounds(15, 115, 110, 25);
         promptPanel.add(indexLabel);
         indexField.setBounds(130, 115, 190, 25);
         promptPanel.add(indexField);
+
         // Buttons
         promptBtn.setBounds(10, 150, 140, 35);
         promptPanel.add(promptBtn);
         buyPromptBtn.setBounds(160, 150, 140, 35);
         promptPanel.add(buyPromptBtn);
+
         // Team Panel
         JPanel teamPanel = new JPanel();
         teamPanel.setLayout(null);
         teamPanel.setBorder(BorderFactory.createTitledBorder("Team Management"));
+
         JLabel teamMemberLabel = new JLabel("Team Member Name:");
         teamMemberLabel.setBounds(15, 25, 135, 25);
         teamPanel.add(teamMemberLabel);
         teamMemberField.setBounds(160, 25, 160, 25);
         teamPanel.add(teamMemberField);
+
         JLabel modelIndexLabel = new JLabel("Model Index: ");
         modelIndexLabel.setBounds(15, 55, 110, 25);
         teamPanel.add(modelIndexLabel);
         modelIndexField.setBounds(130, 55, 190, 25);
+
         teamPanel.add(modelIndexField);
         addTeamMember.setBounds(10, 100, 140, 35);
         teamPanel.add(addTeamMember);
         removeTeamMemberBtn.setBounds(160, 100, 140, 35);
         teamPanel.add(removeTeamMemberBtn);
+
         // Check Panel
         JPanel checkPanel = new JPanel();
         checkPanel.setLayout(null);
         checkPanel.setBorder(BorderFactory.createTitledBorder("Check Plan"));
+
         JLabel checkIndexLabel = new JLabel("Plan Index:");
         checkIndexLabel.setBounds(15, 25, 110, 25);
         checkPanel.add(checkIndexLabel);
         checkPlanIndexField.setBounds(130, 25, 190, 25);
+        
         checkPanel.add(checkPlanIndexField);
         checkPlanType.setBounds(10, 65, 140, 30);
         checkPanel.add(checkPlanType);
