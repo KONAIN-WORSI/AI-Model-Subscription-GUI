@@ -1,0 +1,15 @@
+=== Personal Plan ===
+AI Model Name:Mythos
+Price of Model: 20.0
+Parameter Count: 200
+Context Window Size: 200
+Remaining Prompts in Monthly Quota: 300
+-------------------
+=== Pro Plan ===
+AI Model Name:Gemma
+Price of Model: 50.0
+Parameter Count: 200
+Context Window Size: 200
+Available Team Slots: 0
+Team Members: Konain, kon
+-------------------

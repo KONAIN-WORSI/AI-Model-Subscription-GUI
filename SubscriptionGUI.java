@@ -22,7 +22,7 @@ public class SubscriptionGUI {
         ArrayList<AIModel> plans = new ArrayList<>();
 
         JFrame frame = new JFrame("AI Subscription Manager");
-        frame.setSize(1000, 800);
+        frame.setSize(1100, 820);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
 
@@ -39,106 +39,7 @@ public class SubscriptionGUI {
         JTextField indexField = new JTextField(25);
         JTextField modelIndexField = new JTextField(25);
         JTextField buyPromptField = new JTextField(25);
-
-        // LEFT PANEL  
-        JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(null);
-
-        // Model details group
-        JPanel modelSection = new JPanel();
-        modelSection.setLayout(null);
-        modelSection.setBorder(BorderFactory.createTitledBorder("Model Details"));
-        modelSection.setBounds(10, 10, 340, 280);
-
-        JLabel modLabel = new JLabel("*Model Name:");
-        modLabel.setBounds(15, 25, 110, 25);
-        modelSection.add(modLabel);
-        modelNameField.setBounds(130, 25, 190, 25);
-        modelSection.add(modelNameField);
-
-        JLabel priceLabel = new JLabel("*Price ($):");
-        priceLabel.setBounds(15, 55, 110, 25);
-        modelSection.add(priceLabel);
-        priceField.setBounds(130, 55, 190, 25);
-        modelSection.add(priceField);
-
-        JLabel parametersLabel = new JLabel("*Parameter Count:");
-        parametersLabel.setBounds(15, 85, 110, 25);
-        modelSection.add(parametersLabel);
-        parametersField.setBounds(130, 85, 190, 25);
-        modelSection.add(parametersField);
-
-        JLabel contextWindowLabel = new JLabel("*Context Window:");
-        contextWindowLabel.setBounds(15, 115, 110, 25);
-        modelSection.add(contextWindowLabel);
-        contextWindowField.setBounds(130, 115, 190, 25);
-        modelSection.add(contextWindowField);
-
-        JLabel promptsQuotaLabel = new JLabel("Prompts Quota:");
-        promptsQuotaLabel.setBounds(15, 145, 110, 25);
-        modelSection.add(promptsQuotaLabel);
-        promptsQuotaField.setBounds(130, 145, 190, 25);
-        modelSection.add(promptsQuotaField);
-
-        JLabel teamSlotsLabel = new JLabel("Team Slots:");
-        teamSlotsLabel.setBounds(15, 175, 110, 25);
-        modelSection.add(teamSlotsLabel);
-        teamSlotsField.setBounds(130, 175, 190, 25);
-        modelSection.add(teamSlotsField);
-
-        JLabel teamMemberLabel = new JLabel("Team Member Name:");
-        teamMemberLabel.setBounds(15, 205, 135, 25);
-        modelSection.add(teamMemberLabel);
-        teamMemberField.setBounds(160, 205, 160, 25);
-        modelSection.add(teamMemberField);
-
-        JLabel modelIndexLabel = new JLabel("Index: ");
-        modelIndexLabel.setBounds(15, 235, 110, 25);
-        modelSection.add(modelIndexLabel);
-        modelIndexField.setBounds(130, 235, 190, 25);
-        modelSection.add(modelIndexField);
-
-        leftPanel.add(modelSection);
-
-
-        // prompt settings group
-        JPanel promptSection = new JPanel();
-        promptSection.setLayout(null);
-        promptSection.setBorder(BorderFactory.createTitledBorder("Prompt Settings"));
-        promptSection.setBounds(10, 330, 340, 200);
-
-        JLabel promptLabel = new JLabel("Prompt:");
-        promptLabel.setBounds(15, 25, 110, 25);
-        promptSection.add(promptLabel);
-        promptField.setBounds(130, 25, 190, 25);
-        promptSection.add(promptField);
-
-        JLabel responseLengthLabel = new JLabel("Response Length:");
-        responseLengthLabel.setBounds(15, 65, 110, 25);
-        promptSection.add(responseLengthLabel);
-        responseLengthField.setBounds(130, 65, 190, 25);
-        promptSection.add(responseLengthField);
-
-        JLabel buyPromptLabel = new JLabel("Buy Prompts:");
-        buyPromptLabel.setBounds(15, 105, 110, 25);
-        promptSection.add(buyPromptLabel);
-        buyPromptField.setBounds(130, 105, 190, 25);
-        promptSection.add(buyPromptField);
-
-        JLabel indexLabel = new JLabel("Index: ");
-        indexLabel.setBounds(15, 145, 110, 25);
-        indexField.setBounds(130, 145, 190, 25);
-        promptSection.add(indexLabel);
-        promptSection.add(indexField);
-
-        leftPanel.add(promptSection);
-
-        // Set left panel size
-        leftPanel.setPreferredSize(new Dimension(360, 520));
-        leftPanel.setSize(360, 520);
-
-        JScrollPane leftScrollPane = new JScrollPane(leftPanel);
-        leftScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JTextField checkPlanIndexField = new JTextField(25);
 
         //  CENTER PANEL  
         JTextArea displayArea = new JTextArea();
@@ -176,43 +77,132 @@ public class SubscriptionGUI {
 
         frame.setLayout(null);
 
+        // Model Panel
+        JPanel modelPanel = new JPanel();
+        modelPanel.setLayout(null);
+        modelPanel.setBorder(BorderFactory.createTitledBorder("Model Details"));
+        // Model details
+        JLabel modLabel = new JLabel("*Model Name:");
+        modLabel.setBounds(15, 25, 110, 25);
+        modelPanel.add(modLabel);
+        modelNameField.setBounds(130, 25, 190, 25);
+        modelPanel.add(modelNameField);
+        JLabel priceLabel = new JLabel("*Price ($):");
+        priceLabel.setBounds(15, 55, 110, 25);
+        modelPanel.add(priceLabel);
+        priceField.setBounds(130, 55, 190, 25);
+        modelPanel.add(priceField);
+        JLabel parametersLabel = new JLabel("*Parameter Count:");
+        parametersLabel.setBounds(15, 85, 110, 25);
+        modelPanel.add(parametersLabel);
+        parametersField.setBounds(130, 85, 190, 25);
+        modelPanel.add(parametersField);
+        JLabel contextWindowLabel = new JLabel("*Context Window:");
+        contextWindowLabel.setBounds(15, 115, 110, 25);
+        modelPanel.add(contextWindowLabel);
+        contextWindowField.setBounds(130, 115, 190, 25);
+        modelPanel.add(contextWindowField);
+        JLabel promptsQuotaLabel = new JLabel("Prompts Quota:");
+        promptsQuotaLabel.setBounds(15, 145, 110, 25);
+        modelPanel.add(promptsQuotaLabel);
+        promptsQuotaField.setBounds(130, 145, 190, 25);
+        modelPanel.add(promptsQuotaField);
+        JLabel teamSlotsLabel = new JLabel("Team Slots:");
+        teamSlotsLabel.setBounds(15, 175, 110, 25);
+        modelPanel.add(teamSlotsLabel);
+        teamSlotsField.setBounds(130, 175, 190, 25);
+        modelPanel.add(teamSlotsField);
+        // Buttons
+        addPersonal.setBounds(10, 210, 140, 35);
+        modelPanel.add(addPersonal);
+        addPro.setBounds(160, 210, 140, 35);
+        modelPanel.add(addPro);
+        // Prompt Setting Panel
+        JPanel promptPanel = new JPanel();
+        promptPanel.setLayout(null);
+        promptPanel.setBorder(BorderFactory.createTitledBorder("Prompt Settings"));
+        // Prompt settings
+        JLabel promptLabel = new JLabel("Prompt:");
+        promptLabel.setBounds(15, 25, 110, 25);
+        promptPanel.add(promptLabel);
+        promptField.setBounds(130, 25, 190, 25);
+        promptPanel.add(promptField);
+        JLabel responseLengthLabel = new JLabel("Response Length:");
+        responseLengthLabel.setBounds(15, 55, 110, 25);
+        promptPanel.add(responseLengthLabel);
+        responseLengthField.setBounds(130, 55, 190, 25);
+        promptPanel.add(responseLengthField);
+        JLabel buyPromptLabel = new JLabel("Buy Prompts:");
+        buyPromptLabel.setBounds(15, 85, 110, 25);
+        promptPanel.add(buyPromptLabel);
+        buyPromptField.setBounds(130, 85, 190, 25);
+        promptPanel.add(buyPromptField);
+        JLabel indexLabel = new JLabel("Index: ");
+        indexLabel.setBounds(15, 115, 110, 25);
+        promptPanel.add(indexLabel);
+        indexField.setBounds(130, 115, 190, 25);
+        promptPanel.add(indexField);
+        // Buttons
+        promptBtn.setBounds(10, 150, 140, 35);
+        promptPanel.add(promptBtn);
+        buyPromptBtn.setBounds(160, 150, 140, 35);
+        promptPanel.add(buyPromptBtn);
+        // Team Panel
+        JPanel teamPanel = new JPanel();
+        teamPanel.setLayout(null);
+        teamPanel.setBorder(BorderFactory.createTitledBorder("Team Management"));
+        JLabel teamMemberLabel = new JLabel("Team Member Name:");
+        teamMemberLabel.setBounds(15, 25, 135, 25);
+        teamPanel.add(teamMemberLabel);
+        teamMemberField.setBounds(160, 25, 160, 25);
+        teamPanel.add(teamMemberField);
+        JLabel modelIndexLabel = new JLabel("Model Index: ");
+        modelIndexLabel.setBounds(15, 55, 110, 25);
+        teamPanel.add(modelIndexLabel);
+        modelIndexField.setBounds(130, 55, 190, 25);
+        teamPanel.add(modelIndexField);
+        addTeamMember.setBounds(10, 100, 140, 35);
+        teamPanel.add(addTeamMember);
+        removeTeamMemberBtn.setBounds(160, 100, 140, 35);
+        teamPanel.add(removeTeamMemberBtn);
+        // Check Panel
+        JPanel checkPanel = new JPanel();
+        checkPanel.setLayout(null);
+        checkPanel.setBorder(BorderFactory.createTitledBorder("Check Plan"));
+        JLabel checkIndexLabel = new JLabel("Plan Index:");
+        checkIndexLabel.setBounds(15, 25, 110, 25);
+        checkPanel.add(checkIndexLabel);
+        checkPlanIndexField.setBounds(130, 25, 190, 25);
+        checkPanel.add(checkPlanIndexField);
+        checkPlanType.setBounds(10, 65, 140, 30);
+        checkPanel.add(checkPlanType);
+
         // Position components manually
-        leftScrollPane.setBounds(10, 10, 360, 600);
-        scrollPane.setBounds(380, 10, 600, 600);
+        modelPanel.setBounds(10, 10, 360, 250);
+        promptPanel.setBounds(10, 270, 360, 200);
+        teamPanel.setBounds(10, 480, 360, 150);
+        checkPanel.setBounds(10, 640, 360, 110);
+        scrollPane.setBounds(380, 10, 520, 730);
 
-        // Position buttons with spacing
-        int buttonY = 620;
-        int startX = 10;
+        // Position buttons with spacing on right side
+        int buttonY = 20;
+        int startX = 900;
 
-        addPersonal.setBounds(startX, buttonY, 140, 35);
-        addPro.setBounds(startX + 155, buttonY, 140, 35);
-        displayPlans.setBounds(startX + 310, buttonY, 140, 35);
-        promptBtn.setBounds(startX + 465, buttonY, 140, 35);
-        clearBtn.setBounds(startX + 620, buttonY, 140, 35);
-        buyPromptBtn.setBounds(startX + 775, buttonY, 140, 35);
-
-        // Second row of buttons
-        buttonY += 45;
-        addTeamMember.setBounds(startX, buttonY, 140, 35);
-        checkPlanType.setBounds(startX + 155, buttonY, 140, 35);
-        exportBtn.setBounds(startX + 310, buttonY, 140, 35);
-        loadBtn.setBounds(startX + 465, buttonY, 140, 35);
-        removeTeamMemberBtn.setBounds(startX + 620, buttonY, 140, 35);
+        displayPlans.setBounds(startX, buttonY, 120, 35);
+        clearBtn.setBounds(startX, buttonY + 40, 120, 35);
+        exportBtn.setBounds(startX, buttonY + 80, 120, 35);
+        loadBtn.setBounds(startX, buttonY + 120, 120, 35);
 
         // Add components to frame
-        frame.add(leftScrollPane);
+        frame.add(modelPanel);
+        frame.add(promptPanel);
+        frame.add(teamPanel);
+        frame.add(checkPanel);
         frame.add(scrollPane);
-        frame.add(addPersonal);
-        frame.add(addPro);
         frame.add(displayPlans);
-        frame.add(promptBtn);
         frame.add(clearBtn);
-        frame.add(addTeamMember);
-        frame.add(checkPlanType);
         frame.add(exportBtn);
         frame.add(loadBtn);
-        frame.add(removeTeamMemberBtn);
-        frame.add(buyPromptBtn);
 
         frame.setVisible(true);
 
@@ -347,7 +337,7 @@ public class SubscriptionGUI {
         // check plan type button
         checkPlanType.addActionListener(e -> {
             try{
-                int index = Integer.parseInt(modelIndexField.getText());
+                int index = Integer.parseInt(checkPlanIndexField.getText());
                 checkPlanType(index, plans, frame);
             } catch(NumberFormatException ex) {
                 JOptionPane.showMessageDialog(frame, "Please enter a valid index number.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -456,6 +446,7 @@ public class SubscriptionGUI {
                     writer.write(plan.displayOutput() + "\n");
                     writer.write("-------------------\n");
                 }
+                JOptionPane.showMessageDialog(frame, "Plans exported successfully to Membership.txt!", "Success", JOptionPane.INFORMATION_MESSAGE);
             }catch(IOException ex) {
                 JOptionPane.showMessageDialog(frame, "An error occurred while exporting the plans.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -477,7 +468,8 @@ public class SubscriptionGUI {
             responseLengthField.setText("");
             indexField.setText("");
             modelIndexField.setText("");
-            buyPromptBtn.setText("");
+            buyPromptField.setText("");
+            checkPlanIndexField.setText("");
         });
 
         // display button
