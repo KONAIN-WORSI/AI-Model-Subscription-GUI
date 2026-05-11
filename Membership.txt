@@ -1,15 +1,14 @@
-=== Personal Plan ===
-AI Model Name:Mythos
-Price of Model: 20.0
-Parameter Count: 200
-Context Window Size: 200
-Remaining Prompts in Monthly Quota: 300
+=== Pro Plan ===
+AI Model Name:GLM
+Price of Model: 50.0
+Parameter Count: 500
+Context Window Size: 700
+Available Team Slots: 4
 -------------------
 === Pro Plan ===
 AI Model Name:Gemma
-Price of Model: 50.0
-Parameter Count: 200
-Context Window Size: 200
-Available Team Slots: 0
-Team Members: Konain, kon
+Price of Model: 12.0
+Parameter Count: 122
+Context Window Size: 122
+Available Team Slots: 2
 -------------------
