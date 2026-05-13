@@ -60,7 +60,7 @@ public class PersonalPlan extends AIModel
             return;
         }
 
-        if (calculateTokenUsage(responseTokens, 0, 0)) {
+        if (calculateTokenUsage(inputTokens,responseTokens, 0)) {
             promptsRemaining--;
             JOptionPane.showMessageDialog(null, "Prompt accepted \n"                +  "Prompt: " + promptText + "\n"
                 +  "Expected Tokens: " + responseTokens + "\n"
