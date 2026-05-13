@@ -54,6 +54,7 @@ public class PersonalPlan extends AIModel
      */
     @Override
     public void enterPrompt(String promptText, int responseTokens) {
+        int inputTokens = promptText.length();
         if (promptsRemaining <= 0) {
             JOptionPane.showMessageDialog(null, "Monthly plan limit reached. Please upgrade your plan.");
             return;
